@@ -1,0 +1,4 @@
+user_id,name,headline,location,summary,experience,education,skills,profile_url
+linkedin_user1,User One,Software Engineer at Company A,"New York, NY",Experienced software engineer,"Company A, Company B",University X,"Python, Java",https://linkedin.com/in/user1
+linkedin_user2,User Two,Data Scientist at Company B,"San Francisco, CA",Data scientist with ML expertise,"Company C, Company D",University Y,"Machine Learning, SQL",https://linkedin.com/in/user2
+linkedin_user3,User Three,Product Manager at Company C,"Seattle, WA",Product manager with 5 years experience,"Company E, Company F",University Z,"Product Management, Agile",https://linkedin.com/in/user3

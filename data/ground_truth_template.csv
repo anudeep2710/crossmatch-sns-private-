@@ -1,0 +1,10 @@
+user_id_1,user_id_2,is_same_user
+linkedin_user1,instagram_user1,1
+linkedin_user2,instagram_user2,1
+linkedin_user3,instagram_user3,1
+linkedin_user1,instagram_user2,0
+linkedin_user1,instagram_user3,0
+linkedin_user2,instagram_user1,0
+linkedin_user2,instagram_user3,0
+linkedin_user3,instagram_user1,0
+linkedin_user3,instagram_user2,0
