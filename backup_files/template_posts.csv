@@ -1,7 +1,0 @@
-post_id,user_id,content,timestamp,likes,comments
-linkedin_user1_post_1,linkedin_user1,This is a post by user one on LinkedIn,2023-01-01 12:00:00,50,5
-linkedin_user1_post_2,linkedin_user1,Another post by user one on LinkedIn,2023-01-02 12:00:00,60,6
-linkedin_user2_post_1,linkedin_user2,This is a post by user two on LinkedIn,2023-01-01 13:00:00,70,7
-linkedin_user2_post_2,linkedin_user2,Another post by user two on LinkedIn,2023-01-02 13:00:00,80,8
-linkedin_user3_post_1,linkedin_user3,This is a post by user three on LinkedIn,2023-01-01 14:00:00,90,9
-linkedin_user3_post_2,linkedin_user3,Another post by user three on LinkedIn,2023-01-02 14:00:00,100,10

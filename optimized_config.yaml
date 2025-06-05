@@ -1,0 +1,103 @@
+caching:
+  cache_dir: optimized_cache
+  use_cache: true
+  use_compression: true
+evaluation:
+  compute_visualizations: true
+  cv_folds: 5
+  experiment_name: optimized_cross_platform_identification
+  k_values:
+  - 1
+  - 3
+  - 5
+  - 10
+  - 20
+  - 50
+  use_cross_validation: true
+  use_mlflow: true
+fusion:
+  fusion_epochs: 100
+  fusion_layers: 3
+  learning_rate: 0.0005
+  method: cross_modal_attention
+  num_heads: 16
+  output_dim: 512
+  use_contrastive_learning: true
+  use_cross_modal_attention: true
+  use_self_attention: true
+hardware:
+  dataloader_num_workers: 4
+  device: auto
+  pin_memory: true
+  use_mixed_precision: true
+matching:
+  ensemble_methods:
+  - cosine
+  - gsmua
+  - frui_p
+  - lgb
+  - xgboost
+  frui_p:
+    damping_factor: 0.85
+    propagation_iterations: 5
+    use_weighted_propagation: true
+  gsmua:
+    attention_dim: 128
+    hidden_dim: 256
+    learning_rate: 0.0005
+    num_epochs: 200
+    use_multi_head_attention: true
+  hard_negative_ratio: 0.4
+  threshold: 0.5
+  use_ensemble: true
+  use_focal_loss: true
+  use_hard_negative_mining: true
+  use_triplet_loss: true
+network_embedding:
+  batch_size: 64
+  dropout: 0.1
+  early_stopping_patience: 20
+  embedding_dim: 256
+  hidden_dim: 128
+  learning_rate: 0.001
+  method: graphsage
+  num_epochs: 300
+  num_layers: 3
+  use_batch_normalization: true
+  use_residual_connections: true
+preprocessing:
+  augmentation_ratio: 0.5
+  min_post_length: 20
+  min_posts_per_user: 5
+  use_advanced_cleaning: true
+  use_ner: true
+  use_paraphrasing: true
+semantic_embedding:
+  batch_size: 32
+  contrastive_temperature: 0.07
+  embedding_dim: 768
+  fine_tune: true
+  fine_tune_epochs: 5
+  learning_rate: 1.0e-05
+  max_length: 512
+  model_name: sentence-transformers/all-mpnet-base-v2
+  use_contrastive_learning: true
+  use_mixed_precision: true
+temporal_embedding:
+  embedding_dim: 256
+  learning_rate: 0.0005
+  max_sequence_length: 150
+  num_epochs: 100
+  num_heads: 12
+  num_layers: 6
+  use_time2vec: true
+  use_transformer: true
+training:
+  max_grad_norm: 1.0
+  patience: 20
+  scheduler_type: cosine_annealing
+  use_curriculum_learning: true
+  use_early_stopping: true
+  use_gradient_clipping: true
+  use_learning_rate_scheduling: true
+  use_progressive_training: true

@@ -1,4 +1,0 @@
-user_id,username,name,bio,posts_count,followers_count,following_count,profile_url
-instagram_user1,user1,User One,This is user one's bio,10,100,200,https://instagram.com/user1
-instagram_user2,user2,User Two,This is user two's bio,20,200,300,https://instagram.com/user2
-instagram_user3,user3,User Three,This is user three's bio,30,300,400,https://instagram.com/user3
