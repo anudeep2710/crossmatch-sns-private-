@@ -5,7 +5,6 @@ Module for generating embeddings from social network structures.
 import numpy as np
 import pandas as pd
 import networkx as nx
-from node2vec import Node2Vec
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -14,6 +13,21 @@ import logging
 import os
 from sklearn.preprocessing import StandardScaler
 import joblib
+import warnings
+
+# Handle node2vec import with compatibility fix
+try:
+    # Suppress numpy warnings during import
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=RuntimeWarning)
+        warnings.filterwarnings("ignore", message="numpy.dtype size changed")
+        from node2vec import Node2Vec
+    NODE2VEC_AVAILABLE = True
+except (ImportError, ValueError) as e:
+    NODE2VEC_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning(f"node2vec package not available due to compatibility issue: {e}")
+    logger.info("Will use alternative graph embedding methods")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -121,16 +135,24 @@ class NetworkEmbedder:
         """
         logger.info(f"Generating {method} embeddings for {platform_name} network with {network.number_of_nodes()} nodes")
 
+        # Check method availability and fallback if needed
         if method == 'node2vec':
-            embeddings = self._node2vec_embeddings(network, platform_name)
+            if NODE2VEC_AVAILABLE:
+                embeddings = self._node2vec_embeddings(network, platform_name)
+            else:
+                logger.warning("node2vec not available. Falling back to GCN.")
+                embeddings = self._gcn_embeddings(network, platform_name)
         elif method == 'gcn':
             embeddings = self._gcn_embeddings(network, platform_name)
         elif method in ['deepwalk', 'role2vec', 'graph2vec']:
             if KARATECLUB_AVAILABLE:
                 embeddings = self._karateclub_embeddings(network, platform_name, method)
-            else:
+            elif NODE2VEC_AVAILABLE:
                 logger.warning(f"karateclub package not available. Falling back to node2vec.")
                 embeddings = self._node2vec_embeddings(network, platform_name)
+            else:
+                logger.warning(f"Neither karateclub nor node2vec available. Falling back to GCN.")
+                embeddings = self._gcn_embeddings(network, platform_name)
         else:
             raise ValueError(f"Unsupported embedding method: {method}")
 
@@ -147,7 +169,7 @@ class NetworkEmbedder:
             embeddings_df.to_csv(os.path.join(save_path, f"{platform_name}_{method}_embeddings.csv"))
 
             # Save model
-            if method == 'node2vec' and platform_name in self.models:
+            if method == 'node2vec' and NODE2VEC_AVAILABLE and platform_name in self.models:
                 self.models[platform_name].save(os.path.join(save_path, f"{platform_name}_{method}_model"))
 
         logger.info(f"Generated embeddings with shape {embeddings.shape}")
@@ -201,6 +223,11 @@ class NetworkEmbedder:
         Returns:
             np.ndarray: Node2Vec embeddings
         """
+        # Check if node2vec is available
+        if not NODE2VEC_AVAILABLE:
+            logger.warning("node2vec not available. Falling back to GCN.")
+            return self._gcn_embeddings(network, platform_name, retrain)
+
         # Check if network is empty
         if network.number_of_nodes() == 0:
             logger.warning(f"Empty network for {platform_name}. Returning empty embeddings.")
@@ -217,28 +244,33 @@ class NetworkEmbedder:
             # Use more workers for better parallelization
             num_workers = min(os.cpu_count() or 4, 8)
 
-            node2vec = Node2Vec(
-                network,
-                dimensions=self.params['embedding_dim'],
-                walk_length=self.params['walk_length'],
-                num_walks=self.params['num_walks'],
-                p=self.params['p'],
-                q=self.params['q'],
-                workers=num_workers,
-                quiet=True  # Reduce logging noise
-            )
+            try:
+                node2vec = Node2Vec(
+                    network,
+                    dimensions=self.params['embedding_dim'],
+                    walk_length=self.params['walk_length'],
+                    num_walks=self.params['num_walks'],
+                    p=self.params['p'],
+                    q=self.params['q'],
+                    workers=num_workers,
+                    quiet=True  # Reduce logging noise
+                )
 
-            # Train model with optimized parameters
-            model = node2vec.fit(
-                window=10,
-                min_count=1,
-                batch_words=10000,  # Larger batch size for better performance
-                epochs=5,           # Fewer epochs for faster training
-                compute_loss=False  # Disable loss computation for speed
-            )
+                # Train model with optimized parameters
+                model = node2vec.fit(
+                    window=10,
+                    min_count=1,
+                    batch_words=10000,  # Larger batch size for better performance
+                    epochs=5,           # Fewer epochs for faster training
+                    compute_loss=False  # Disable loss computation for speed
+                )
 
-            # Store model
-            self.models[platform_name] = model
+                # Store model
+                self.models[platform_name] = model
+            except Exception as e:
+                logger.error(f"Error training Node2Vec model: {e}")
+                logger.warning("Falling back to GCN embeddings.")
+                return self._gcn_embeddings(network, platform_name, retrain)
 
         # Get embeddings for all nodes efficiently
         # Pre-allocate arrays for better performance

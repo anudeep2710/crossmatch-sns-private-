@@ -64,7 +64,11 @@ class GatedFusion(nn.Module):
         gated = [g * p for g, p in zip(gates, projected)]
 
         # Sum the gated embeddings
-        fused = sum(gated)
+        if gated:
+            fused = torch.stack(gated).sum(dim=0)
+        else:
+            # Return zero tensor if no embeddings
+            fused = torch.zeros_like(projected[0]) if projected else torch.zeros(1)
 
         return fused
 
@@ -363,12 +367,17 @@ class FusionEmbedder:
                 output = model(embeddings_tensors)
 
                 # Use a simple reconstruction loss
-                loss = 0
+                loss = None
                 for i, emb in enumerate(embeddings_tensors):
                     proj = nn.Linear(emb.shape[0], output.shape[0]).to(self.device)
-                    loss += F.mse_loss(proj(emb), output)
+                    current_loss = F.mse_loss(proj(emb), output)
+                    if loss is None:
+                        loss = current_loss
+                    else:
+                        loss += current_loss
 
-                loss.backward()
+                if loss is not None:
+                    loss.backward()
                 optimizer.step()
 
             # Store the model

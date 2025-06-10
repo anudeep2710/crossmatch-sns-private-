@@ -1,0 +1,11 @@
+user_id,post_id,content,timestamp,likes,comments
+ig1,ig_p_0,New machine learning project in the works! #ML #Python,2025-06-08 02:53:28.262578,42,8
+ig1,ig_p_1,Computer vision breakthrough! #AI #tech,2025-06-07 02:53:28.262605,35,5
+ig2,ig_p_2,Research paper accepted! #NLP #transformers,2025-06-06 02:53:28.262613,71,12
+ig2,ig_p_3,Amazing AI conference this week #research,2025-06-05 02:53:28.262617,85,15
+ig3,ig_p_4,Product launch success! #product #tech,2025-06-04 02:53:28.262622,28,4
+ig3,ig_p_5,Q4 planning session #strategy #business,2025-06-03 02:53:28.262626,31,6
+ig4,ig_p_6,Mobile design trends 2024 #UX #design,2025-06-02 02:53:28.262631,59,9
+ig4,ig_p_7,User feedback is gold #UXresearch,2025-06-01 02:53:28.262636,74,11
+ig5,ig_p_8,Kubernetes tips and tricks #devops #k8s,2025-05-31 02:53:28.262640,38,7
+ig5,ig_p_9,Cloud security matters #security #cloud,2025-05-30 02:53:28.262645,49,8

@@ -1,0 +1,8 @@
+source,target,weight
+ln_001,ln_002,1
+ln_001,ln_003,1
+ln_002,ln_003,1
+ln_002,ln_004,1
+ln_003,ln_004,1
+ln_004,ln_005,1
+ln_005,ln_001,1

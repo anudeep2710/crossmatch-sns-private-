@@ -1,0 +1,6 @@
+user_id,name,bio,location,followers_count,connections
+ln_001,Alice Johnson,Senior Software Engineer at TechCorp with 5+ years experience in ML,"San Francisco, CA",1250,500
+ln_002,Bob Smith,Digital Marketing Manager passionate about data-driven campaigns,"New York, NY",890,350
+ln_003,Carol Davis,UX Designer creating intuitive user experiences for mobile apps,"Austin, TX",1680,720
+ln_004,David Wilson,Data Scientist specializing in predictive analytics and AI,"Seattle, WA",2100,850
+ln_005,Eva Brown,Product Manager leading cross-functional teams in startup environment,"Boston, MA",1420,630

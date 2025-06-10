@@ -1,0 +1,6 @@
+user_id,name,bio,location,followers,following
+u1,John Smith,Software engineer with 5 years experience in Python and ML,San Francisco,1200,300
+u2,Jane Doe,Data scientist passionate about NLP and computer vision,New York,800,250
+u3,Bob Johnson,"Product manager in tech industry, MBA from Stanford",Seattle,1500,400
+u4,Alice Brown,UX designer with focus on mobile applications,Austin,600,200
+u5,Charlie Wilson,DevOps engineer specializing in cloud infrastructure,Boston,900,350

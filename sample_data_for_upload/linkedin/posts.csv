@@ -1,0 +1,9 @@
+user_id,content,timestamp,likes,comments
+ln_001,Just deployed our new machine learning model to production! Excited to see the impact on user engagement.,2024-01-15 09:30:00,67,12
+ln_001,Great discussion at the AI conference today. The future of neural networks looks promising!,2024-01-12 14:20:00,45,8
+ln_002,Our latest A/B test showed 25% improvement in conversion rates. Data science wins again!,2024-01-14 11:15:00,89,15
+ln_002,Attending the Digital Marketing Summit. Amazing insights on customer journey optimization.,2024-01-10 16:45:00,52,9
+ln_003,Finished wireframes for the new mobile app feature. User-centered design is everything!,2024-01-13 10:30:00,73,11
+ln_003,Research shows that 87% of users prefer intuitive navigation. Design matters!,2024-01-08 13:20:00,61,7
+ln_004,Built a predictive model that forecasts customer churn with 94% accuracy. Machine learning magic!,2024-01-11 19:15:00,94,18
+ln_005,Leading the product roadmap for Q2. Exciting features coming to our platform!,2024-01-09 08:30:00,78,14

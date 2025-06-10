@@ -1,0 +1,21 @@
+platform1,user_id1,platform2,user_id2,match,confidence,matching_fields,verification_method,notes
+LinkedIn,linkedin_001,Instagram,instagram_001,1,0.865,name;location;bio,manual,Same person across platforms - User 1
+LinkedIn,linkedin_001,Twitter,twitter_001,1,0.851,name;location;bio,manual,Same person across platforms - User 1
+Instagram,instagram_001,Twitter,twitter_001,1,0.855,bio;location,manual,Same person across platforms - User 1
+LinkedIn,linkedin_002,Instagram,instagram_002,1,0.901,name;location;bio,manual,Same person across platforms - User 2
+LinkedIn,linkedin_002,Twitter,twitter_002,1,0.868,name;location;bio,manual,Same person across platforms - User 2
+Instagram,instagram_002,Twitter,twitter_002,1,0.913,bio;location,manual,Same person across platforms - User 2
+LinkedIn,linkedin_003,Instagram,instagram_003,1,0.941,name;location;bio,manual,Same person across platforms - User 3
+LinkedIn,linkedin_003,Twitter,twitter_003,1,0.89,name;location;bio,manual,Same person across platforms - User 3
+Instagram,instagram_003,Twitter,twitter_003,1,0.862,bio;location,manual,Same person across platforms - User 3
+LinkedIn,linkedin_004,Instagram,instagram_004,1,0.944,name;location;bio,manual,Same person across platforms - User 4
+LinkedIn,linkedin_004,Twitter,twitter_004,1,0.935,name;location;bio,manual,Same person across platforms - User 4
+Instagram,instagram_004,Twitter,twitter_004,1,0.872,bio;location,manual,Same person across platforms - User 4
+LinkedIn,linkedin_005,Instagram,instagram_005,1,0.958,name;location;bio,manual,Same person across platforms - User 5
+LinkedIn,linkedin_005,Twitter,twitter_005,1,0.9,name;location;bio,manual,Same person across platforms - User 5
+Instagram,instagram_005,Twitter,twitter_005,1,0.911,bio;location,manual,Same person across platforms - User 5
+LinkedIn,linkedin_003,Instagram,instagram_001,0,0.188,,manual,Different people - User 3 vs User 1
+LinkedIn,linkedin_002,Instagram,instagram_004,0,0.139,,manual,Different people - User 2 vs User 4
+LinkedIn,linkedin_002,Instagram,instagram_003,0,0.07,,manual,Different people - User 2 vs User 3
+LinkedIn,linkedin_003,Instagram,instagram_005,0,0.23,,manual,Different people - User 3 vs User 5
+LinkedIn,linkedin_003,Instagram,instagram_001,0,0.13,,manual,Different people - User 3 vs User 1

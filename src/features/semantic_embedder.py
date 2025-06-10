@@ -5,7 +5,15 @@ Module for generating embeddings from textual content using BERT.
 import numpy as np
 import pandas as pd
 import torch
-from transformers import BertModel, BertTokenizer, AutoModel, AutoTokenizer
+try:
+    from transformers import AutoModel, AutoTokenizer
+except ImportError:
+    try:
+        from transformers.models.auto.modeling_auto import AutoModel
+        from transformers.models.auto.tokenization_auto import AutoTokenizer
+    except ImportError:
+        AutoModel = None
+        AutoTokenizer = None
 from sentence_transformers import SentenceTransformer
 from typing import Dict, List, Optional, Union, Tuple, Any
 import logging
@@ -75,6 +83,8 @@ class SemanticEmbedder:
                         raise
                 logger.info(f"Loaded SentenceTransformer model: {self.model_name}")
             else:
+                if AutoTokenizer is None or AutoModel is None:
+                    raise ImportError("AutoTokenizer or AutoModel not available")
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
                 # Fix for PyTorch meta tensor issue
                 try:
@@ -113,6 +123,10 @@ class SemanticEmbedder:
         """
         logger.info(f"Generating embeddings for {platform_name} with {len(data)} texts")
 
+        # Ensure data is a DataFrame
+        if not isinstance(data, pd.DataFrame):
+            data = pd.DataFrame(data)
+            
         # Check if text column exists
         if text_col not in data.columns:
             raise ValueError(f"Text column '{text_col}' not found in data")
@@ -178,6 +192,10 @@ class SemanticEmbedder:
             Dict[str, np.ndarray]: Dictionary mapping user IDs to embeddings
         """
         logger.info(f"Transforming {len(data)} texts for {platform_name}")
+
+        # Ensure data is a DataFrame
+        if not isinstance(data, pd.DataFrame):
+            data = pd.DataFrame(data)
 
         # Check if text column exists
         if text_col not in data.columns:

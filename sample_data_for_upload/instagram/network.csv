@@ -1,0 +1,7 @@
+source,target,weight
+ig_101,ig_102,1
+ig_101,ig_103,1
+ig_102,ig_103,1
+ig_103,ig_104,1
+ig_104,ig_105,1
+ig_105,ig_101,1

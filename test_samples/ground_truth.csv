@@ -1,0 +1,6 @@
+linkedin_id,instagram_id,is_same_user,case_description
+ln_test_001,ig_test_001,1,"Same person, different writing styles (professional vs casual)"
+ln_test_002,ig_test_002,0,"Different people, nearly identical professional backgrounds"
+ln_test_003,ig_test_003,1,"Same person, bilingual with cultural code-switching"
+ln_test_004,ig_test_004,1,"Same person, career transition (tech to art)"
+ln_test_005,ig_test_005,0,"Different people, same city, same hobbies, similar age"

@@ -1,0 +1,357 @@
+CROSS-PLATFORM USER IDENTIFICATION RESEARCH - VIVA QUESTIONS
+============================================================
+
+Research Title: Enhanced Cross-Platform User Identification Using Multi-Modal Embeddings and Ensemble Learning
+Authors: Anudeep, Priti Gupta
+Department: Computer Science, Amrita Vishwa Vidyapeetham
+
+Generated: December 2024
+Purpose: Comprehensive viva preparation for research defense
+
+=============================================================================
+SECTION 1: RESEARCH MOTIVATION AND PROBLEM STATEMENT
+=============================================================================
+
+1. What is cross-platform user identification and why is it important?
+
+2. What are the main challenges in identifying users across different social media platforms?
+
+3. How does your research differ from existing approaches to cross-platform user identification?
+
+4. What motivated you to choose LinkedIn and Instagram as your target platforms?
+
+5. What are the real-world applications of cross-platform user identification?
+
+6. How does privacy concern affect cross-platform user identification research?
+
+7. What is the significance of multi-modal approaches in this domain?
+
+8. Why is ensemble learning particularly suitable for this problem?
+
+9. What are the limitations of single-modal approaches that your research addresses?
+
+10. How does your work contribute to the field of social network analysis?
+
+=============================================================================
+SECTION 2: LITERATURE REVIEW AND RELATED WORK
+=============================================================================
+
+11. What are the key existing methods for cross-platform user identification?
+
+12. How does your approach compare to HYDRA by Liu et al. (2016)?
+
+13. What are the limitations of profile-based matching methods?
+
+14. How do network-based approaches like GSMUA work and what are their limitations?
+
+15. What role does deep learning play in modern cross-platform identification?
+
+16. How does your multi-modal fusion differ from simple feature concatenation?
+
+17. What are the advantages of attention mechanisms in cross-platform matching?
+
+18. How do you handle the cold start problem in cross-platform identification?
+
+19. What evaluation metrics are commonly used in this field and why?
+
+20. How does your ensemble approach improve upon individual matchers?
+
+=============================================================================
+SECTION 3: METHODOLOGY AND TECHNICAL APPROACH
+=============================================================================
+
+21. Explain your 4-layer system architecture in detail.
+
+22. What are the four types of embeddings you extract and why each is important?
+
+23. How do semantic embeddings capture user similarity across platforms?
+
+24. Explain the difference between your semantic and simple semantic embedders.
+
+25. How do network embeddings work and what graph algorithms do you use?
+
+26. What is Time2Vec and how do you use it for temporal embeddings?
+
+27. How do you handle users with different posting patterns across platforms?
+
+28. Explain your cross-modal attention mechanism.
+
+29. How does self-attention fusion combine different modalities?
+
+30. What are the four matchers in your ensemble and their specializations?
+
+31. How do you determine optimal weights for ensemble combination?
+
+32. What is meta-learning and how do you apply it in your system?
+
+33. How do you handle missing data or incomplete profiles?
+
+34. What preprocessing steps do you apply to the data?
+
+35. How do you ensure scalability for large datasets?
+
+=============================================================================
+SECTION 4: DATASET AND EXPERIMENTAL SETUP
+=============================================================================
+
+36. Describe your dataset in detail (size, sources, characteristics).
+
+37. How did you collect or generate your LinkedIn and Instagram data?
+
+38. What is ground truth and how did you establish it for your dataset?
+
+39. How do you ensure data quality and consistency across platforms?
+
+40. What are the challenges in creating a balanced dataset?
+
+41. How do you handle class imbalance in your matching problem?
+
+42. What is your train-test split strategy and why?
+
+43. How do you perform cross-validation for reliable results?
+
+44. What baseline methods do you compare against and why?
+
+45. How do you ensure fair comparison with existing methods?
+
+46. What are the ethical considerations in your data collection?
+
+47. How do you handle privacy and anonymization of user data?
+
+48. What are the limitations of your current dataset?
+
+49. How would your approach scale to larger datasets?
+
+50. What additional data sources could improve your results?
+
+=============================================================================
+SECTION 5: RESULTS AND EVALUATION
+=============================================================================
+
+51. What are your main performance metrics and why did you choose them?
+
+52. Explain your precision, recall, and F1-score results.
+
+53. What does an 87% F1-score mean in practical terms?
+
+54. How does your 11.5% improvement over baselines translate to real impact?
+
+55. What does your ablation study reveal about component contributions?
+
+56. Which modality contributes most to matching performance and why?
+
+57. How do you interpret your confusion matrix results?
+
+58. What are the main sources of false positives in your system?
+
+59. What are the main sources of false negatives in your system?
+
+60. How does performance vary across different user types or demographics?
+
+61. What is the computational complexity of your approach?
+
+62. How does runtime scale with dataset size?
+
+63. What are the memory requirements of your system?
+
+64. How do you handle edge cases or challenging scenarios?
+
+65. What validation techniques did you use to ensure robust results?
+
+=============================================================================
+SECTION 6: CHALLENGING SCENARIOS AND ROBUSTNESS
+=============================================================================
+
+66. How does your system handle users with very different writing styles?
+
+67. What happens when users have similar profiles but are different people?
+
+68. How do you handle multilingual users or code-switching?
+
+69. How does your system perform with users undergoing career transitions?
+
+70. What about users who maintain very different personas across platforms?
+
+71. How do you handle inactive users with limited data?
+
+72. What is your approach to handling fake or bot accounts?
+
+73. How does temporal drift affect your matching performance?
+
+74. How do you handle platform-specific features or content types?
+
+75. What are the failure modes of your system?
+
+=============================================================================
+SECTION 7: TECHNICAL IMPLEMENTATION
+=============================================================================
+
+76. What programming languages and frameworks did you use?
+
+77. How did you implement the attention mechanisms?
+
+78. What deep learning libraries did you utilize?
+
+79. How do you handle GPU/CPU optimization?
+
+80. What are the key data structures in your implementation?
+
+81. How do you implement efficient similarity computation?
+
+82. What caching strategies do you use for embeddings?
+
+83. How do you handle batch processing for large datasets?
+
+84. What are the main bottlenecks in your system?
+
+85. How do you ensure reproducibility of your results?
+
+86. What testing strategies did you employ?
+
+87. How do you handle version control and code management?
+
+88. What documentation practices did you follow?
+
+89. How would you deploy this system in production?
+
+90. What monitoring and maintenance would be required?
+
+=============================================================================
+SECTION 8: CONTRIBUTIONS AND NOVELTY
+=============================================================================
+
+91. What are your main technical contributions to the field?
+
+92. How is your multi-modal fusion approach novel?
+
+93. What makes your ensemble learning strategy unique?
+
+94. How do your attention mechanisms improve upon existing work?
+
+95. What new insights does your research provide?
+
+96. How do your experimental results advance the field?
+
+97. What methodological innovations did you introduce?
+
+98. How does your work bridge different research areas?
+
+99. What are the theoretical implications of your findings?
+
+100. How does your research open new research directions?
+
+=============================================================================
+SECTION 9: LIMITATIONS AND FUTURE WORK
+=============================================================================
+
+101. What are the main limitations of your current approach?
+
+102. How could your system be improved with more data?
+
+103. What additional modalities could enhance performance?
+
+104. How would you extend your work to other social platforms?
+
+105. What are the scalability challenges for real-world deployment?
+
+106. How could privacy-preserving techniques be integrated?
+
+107. What role could federated learning play in your approach?
+
+108. How would you handle dynamic user behavior over time?
+
+109. What improvements could be made to the ensemble strategy?
+
+110. How would you incorporate user feedback for system improvement?
+
+=============================================================================
+SECTION 10: BROADER IMPACT AND APPLICATIONS
+=============================================================================
+
+111. What are the potential commercial applications of your research?
+
+112. How could your work benefit recommendation systems?
+
+113. What role could it play in fraud detection and security?
+
+114. How might it be used for social media analytics?
+
+115. What are the implications for digital marketing?
+
+116. How could it assist in academic research on social behavior?
+
+117. What are the potential misuses of this technology?
+
+118. How do you address ethical concerns about user privacy?
+
+119. What regulations might affect deployment of such systems?
+
+120. How would you ensure responsible use of this technology?
+
+=============================================================================
+DEFENSE PREPARATION TIPS
+=============================================================================
+
+TECHNICAL PREPARATION:
+- Review all mathematical formulations and be able to derive them
+- Understand every component of your architecture deeply
+- Be prepared to explain trade-offs in your design decisions
+- Know your experimental setup and results thoroughly
+- Practice explaining complex concepts in simple terms
+
+PRESENTATION SKILLS:
+- Prepare clear diagrams and visualizations
+- Practice timing for different question lengths
+- Be ready to draw/sketch your architecture
+- Prepare backup explanations for technical failures
+- Practice handling interruptions gracefully
+
+COMMON FOLLOW-UP AREAS:
+- Mathematical foundations of your methods
+- Comparison with very recent related work
+- Detailed error analysis and failure cases
+- Computational complexity and optimization
+- Real-world deployment considerations
+
+CONFIDENCE BUILDING:
+- Know your strengths and unique contributions
+- Prepare examples and analogies for complex concepts
+- Practice admitting limitations honestly
+- Be ready to discuss future improvements
+- Remember: you know your work better than anyone
+
+=============================================================================
+SAMPLE ANSWER FRAMEWORKS
+=============================================================================
+
+FOR TECHNICAL QUESTIONS:
+1. Define the concept clearly
+2. Explain the motivation/problem it solves
+3. Describe your specific approach
+4. Compare with alternatives
+5. Show results/evidence
+
+FOR METHODOLOGY QUESTIONS:
+1. State the overall strategy
+2. Break down into components
+3. Explain each component's role
+4. Discuss integration/combination
+5. Validate with experimental results
+
+FOR RESULTS QUESTIONS:
+1. Present the key numbers
+2. Explain what they mean practically
+3. Compare with baselines/state-of-art
+4. Discuss statistical significance
+5. Address limitations honestly
+
+=============================================================================
+END OF VIVA QUESTIONS DOCUMENT
+=============================================================================
+
+Total Questions: 120
+Coverage: Complete research scope
+Difficulty: Beginner to Advanced
+Purpose: Comprehensive viva preparation
+
+Good luck with your research defense!

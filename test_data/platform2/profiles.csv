@@ -1,0 +1,6 @@
+user_id,username,bio,location,followers,following
+ig1,johnsmith_dev,Python developer | ML enthusiast | SF Bay Area,"San Francisco, CA",1150,280
+ig2,jane_datascience,Data scientist | NLP researcher | NYC,"New York, NY",820,260
+ig3,bob_pm,Product management | Tech strategy | Seattle,"Seattle, WA",1480,390
+ig4,alice_design,UX/UI designer | Mobile apps | Austin TX,"Austin, TX",590,210
+ig5,charlie_ops,DevOps | Cloud architect | Boston,"Boston, MA",910,340

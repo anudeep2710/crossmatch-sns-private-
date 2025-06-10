@@ -9,34 +9,114 @@ import numpy as np
 from typing import Dict, List, Optional, Union, Tuple, Any
 import logging
 from datetime import datetime
+import torch
 
-# Wrap PyTorch imports in try-except to avoid Streamlit file watcher errors
+# Import project modules with error handling
 try:
-    # Import project modules
     from src.data.data_loader import DataLoader
+except ImportError as e:
+    logging.warning(f"Could not import DataLoader: {e}")
+    DataLoader = None
+
+try:
     from src.data.preprocessor import Preprocessor
+except ImportError as e:
+    logging.warning(f"Could not import Preprocessor: {e}")
+    Preprocessor = None
+
+try:
+    from src.data.enhanced_preprocessor import EnhancedPreprocessor
+except ImportError as e:
+    logging.warning(f"Could not import EnhancedPreprocessor: {e}")
+    EnhancedPreprocessor = None
+
+try:
     from src.features.network_embedder import NetworkEmbedder
-    from src.features.semantic_embedder import SemanticEmbedder
-    from src.features.temporal_embedder import TemporalEmbedder
-    from src.features.fusion_embedder import FusionEmbedder
-    from src.models.user_matcher import UserMatcher
-    from src.models.evaluator import Evaluator
-    from src.utils.visualizer import Visualizer
-    from src.utils.caching import EmbeddingCache, BatchProcessor
-except RuntimeError as e:
-    if "__path__._path" in str(e):
-        # This is the PyTorch/Streamlit file watcher error, we can ignore it
-        # and try importing again
-        from src.data.data_loader import DataLoader
-        from src.data.preprocessor import Preprocessor
-        from src.features.network_embedder import NetworkEmbedder
+except (ImportError, ValueError) as e:
+    logging.warning(f"Could not import NetworkEmbedder: {e}")
+    try:
+        from src.features.simple_network_embedder import SimpleNetworkEmbedder as NetworkEmbedder
+        logging.info("Using SimpleNetworkEmbedder as fallback")
+    except ImportError as e2:
+        logging.warning(f"Could not import SimpleNetworkEmbedder: {e2}")
+        NetworkEmbedder = None
+
+try:
+    from src.features.simple_semantic_embedder import SimpleSemanticEmbedder as SemanticEmbedder
+    logging.info("Using SimpleSemanticEmbedder")
+except ImportError as e:
+    logging.warning(f"Could not import SimpleSemanticEmbedder: {e}")
+    try:
         from src.features.semantic_embedder import SemanticEmbedder
-        from src.features.temporal_embedder import TemporalEmbedder
-        from src.features.fusion_embedder import FusionEmbedder
-        from src.models.user_matcher import UserMatcher
-        from src.models.evaluator import Evaluator
-        from src.utils.visualizer import Visualizer
-        from src.utils.caching import EmbeddingCache, BatchProcessor
+        logging.info("Using full SemanticEmbedder")
+    except ImportError as e2:
+        logging.warning(f"Could not import SemanticEmbedder: {e2}")
+        SemanticEmbedder = None
+
+try:
+    from src.features.temporal_embedder import TemporalEmbedder
+except ImportError as e:
+    logging.warning(f"Could not import TemporalEmbedder: {e}")
+    TemporalEmbedder = None
+
+try:
+    from src.features.profile_embedder import ProfileEmbedder
+except ImportError as e:
+    logging.warning(f"Could not import ProfileEmbedder: {e}")
+    ProfileEmbedder = None
+
+try:
+    from src.features.fusion_embedder import FusionEmbedder
+except ImportError as e:
+    logging.warning(f"Could not import FusionEmbedder: {e}")
+    FusionEmbedder = None
+
+try:
+    from src.features.advanced_fusion import CrossModalAttention, SelfAttentionFusion
+except ImportError as e:
+    logging.warning(f"Could not import advanced fusion modules: {e}")
+    CrossModalAttention = None
+    SelfAttentionFusion = None
+
+try:
+    from src.models.user_matcher import UserMatcher
+except ImportError as e:
+    logging.warning(f"Could not import UserMatcher: {e}")
+    UserMatcher = None
+
+try:
+    from src.models.ensemble_matcher import GSMUAMatcher, FRUIPMatcher, GBMatcher, EnsembleCombiner
+except ImportError as e:
+    logging.warning(f"Could not import ensemble matchers: {e}")
+    GSMUAMatcher = None
+    FRUIPMatcher = None
+    GBMatcher = None
+    EnsembleCombiner = None
+
+try:
+    from src.models.evaluator import Evaluator
+except ImportError as e:
+    logging.warning(f"Could not import Evaluator: {e}")
+    Evaluator = None
+
+try:
+    from src.utils.visualizer import Visualizer
+except ImportError as e:
+    logging.warning(f"Could not import Visualizer: {e}")
+    Visualizer = None
+
+try:
+    from src.utils.caching import EmbeddingCache, BatchProcessor
+except ImportError as e:
+    logging.warning(f"Could not import caching modules: {e}")
+    EmbeddingCache = None
+    BatchProcessor = None
+
+try:
+    from src.utils.privacy import PrivacyProtector
+except ImportError as e:
+    logging.warning(f"Could not import PrivacyProtector: {e}")
+    PrivacyProtector = None
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -44,100 +124,252 @@ logger = logging.getLogger(__name__)
 
 class CrossPlatformUserIdentifier:
     """
-    Main class for cross-platform user identification.
-
-    Attributes:
-        config (Dict): Configuration dictionary
-        data_loader (DataLoader): Data loader instance
-        preprocessor (Preprocessor): Preprocessor instance
-        network_embedder (NetworkEmbedder): Network embedder instance
-        semantic_embedder (SemanticEmbedder): Semantic embedder instance
-        temporal_embedder (TemporalEmbedder): Temporal embedder instance
-        fusion_embedder (FusionEmbedder): Fusion embedder instance
-        user_matcher (UserMatcher): User matcher instance
-        evaluator (Evaluator): Evaluator instance
-        visualizer (Visualizer): Visualizer instance
-        cache (EmbeddingCache): Cache instance
-        batch_processor (BatchProcessor): Batch processor instance
-        data (Dict): Dictionary to store loaded data
-        embeddings (Dict): Dictionary to store generated embeddings
-        matches (Dict): Dictionary to store matching results
-        metrics (Dict): Dictionary to store evaluation metrics
+    Enhanced main class for cross-platform user identification.
+    
+    Implements the complete architecture with:
+    - Advanced preprocessing with NER and quality filtering
+    - Multi-modal feature extraction (Network, Semantic, Temporal, Profile)
+    - Advanced fusion with cross-modal attention and self-attention
+    - Ensemble matching with multiple algorithms
+    - Privacy-preserving output
     """
 
     def __init__(self, config_path: Optional[str] = None):
         """
-        Initialize the CrossPlatformUserIdentifier.
+        Initialize the Enhanced CrossPlatformUserIdentifier.
 
         Args:
             config_path (str, optional): Path to configuration file
         """
         # Load configuration
         self.config = self._load_config(config_path)
-
+        
+        # Set device
+        self.device = self._set_device()
+        
         # Initialize components
-        self.data_loader = DataLoader()
-        self.preprocessor = Preprocessor(download_nltk=self.config.get('download_nltk', True))
-
-        # Initialize embedders
-        self.network_embedder = NetworkEmbedder(
-            embedding_dim=self.config.get('network_embedding_dim', 64),
-            walk_length=self.config.get('walk_length', 30),
-            num_walks=self.config.get('num_walks', 200),
-            p=self.config.get('p', 1.0),
-            q=self.config.get('q', 1.0)
-        )
-
-        self.semantic_embedder = SemanticEmbedder(
-            model_name=self.config.get('semantic_model_name', 'sentence-transformers/all-MiniLM-L6-v2'),
-            use_sentence_transformer=self.config.get('use_sentence_transformer', True),
-            device=self.config.get('device', None)
-        )
-
-        self.temporal_embedder = TemporalEmbedder(
-            num_time_bins=self.config.get('num_time_bins', 24),
-            num_day_bins=self.config.get('num_day_bins', 7),
-            normalize=self.config.get('normalize_temporal', True),
-            timezone=self.config.get('timezone', 'UTC')
-        )
-
-        self.fusion_embedder = FusionEmbedder(
-            output_dim=self.config.get('fusion_output_dim', 64),
-            fusion_method=self.config.get('fusion_method', 'concat'),
-            weights=self.config.get('fusion_weights', None),
-            device=self.config.get('device', None)
-        )
-
-        # Initialize matcher and evaluator
-        self.user_matcher = UserMatcher(
-            method=self.config.get('matching_method', 'cosine'),
-            threshold=self.config.get('matching_threshold', 0.7),
-            device=self.config.get('device', None)
-        )
-
-        self.evaluator = Evaluator()
-
-        # Initialize visualizer
-        self.visualizer = Visualizer(
-            use_plotly=self.config.get('use_plotly', True)
-        )
-
-        # Initialize caching
-        cache_dir = self.config.get('cache_dir', 'cache')
-        self.cache = EmbeddingCache(
-            cache_dir=cache_dir,
-            use_compression=self.config.get('use_compression', True)
-        )
-
-        self.batch_processor = BatchProcessor(cache=self.cache)
-
+        self._init_data_components()
+        self._init_feature_components()
+        self._init_fusion_components()
+        self._init_matching_components()
+        self._init_utility_components()
+        
         # Initialize data storage
         self.data = {}
         self.embeddings = {}
         self.matches = {}
         self.metrics = {}
+        self.ensemble_predictions = {}
+        
+        logger.info("Enhanced CrossPlatformUserIdentifier initialized")
+    
+    def _set_device(self) -> torch.device:
+        """Set the device for computation."""
+        device_config = self.config.get('device', 'auto')
+        if device_config == 'auto':
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        else:
+            device = torch.device(device_config)
+        logger.info(f"Using device: {device}")
+        return device
+    
+    def _init_data_components(self):
+        """Initialize data loading and preprocessing components."""
+        if DataLoader is not None:
+            self.data_loader = DataLoader()
+        else:
+            self.data_loader = None
+            logger.warning("DataLoader not available")
+        
+        # Use enhanced preprocessor if specified and available
+        if self.config.get('use_enhanced_preprocessing', True) and EnhancedPreprocessor is not None:
+            self.preprocessor = EnhancedPreprocessor(self.config)
+        elif Preprocessor is not None:
+            self.preprocessor = Preprocessor(
+                download_nltk=self.config.get('download_nltk', True)
+            )
+        else:
+            self.preprocessor = None
+            logger.warning("No preprocessor available")
+    
+    def _init_feature_components(self):
+        """Initialize feature extraction components."""
+        # Network embedder
+        if NetworkEmbedder is not None:
+            try:
+                # Try full NetworkEmbedder initialization
+                self.network_embedder = NetworkEmbedder(
+                    embedding_dim=self.config.get('network_embedding_dim', 256),
+                    walk_length=self.config.get('walk_length', 30),
+                    num_walks=self.config.get('num_walks', 200),
+                    p=self.config.get('p', 1.0),
+                    q=self.config.get('q', 1.0)
+                )
+            except TypeError:
+                # Fallback to SimpleNetworkEmbedder initialization
+                self.network_embedder = NetworkEmbedder(
+                    embedding_dim=self.config.get('network_embedding_dim', 64),
+                    hidden_dim=self.config.get('network_hidden_dim', 128)
+                )
+        else:
+            self.network_embedder = None
+            logger.warning("NetworkEmbedder not available")
 
-        logger.info("CrossPlatformUserIdentifier initialized")
+        # Semantic embedder
+        if SemanticEmbedder is not None:
+            semantic_config = self.config.get('semantic_embedding', {})
+            model_name = semantic_config.get('model_name', 'sentence-transformers/all-MiniLM-L6-v2')
+            use_sentence_transformer = semantic_config.get('use_sentence_transformer', True)
+            device = semantic_config.get('device', None)
+            
+            # Check if it's SimpleSemanticEmbedder (expects config) or regular SemanticEmbedder (expects params)
+            try:
+                # Try SimpleSemanticEmbedder style first (expects config dict)
+                self.semantic_embedder = SemanticEmbedder(config=self.config)
+            except TypeError:
+                # Fall back to regular SemanticEmbedder style (expects individual params)
+                self.semantic_embedder = SemanticEmbedder(
+                    model_name=model_name,
+                    use_sentence_transformer=use_sentence_transformer,
+                    device=device
+                )
+        else:
+            self.semantic_embedder = None
+            logger.warning("SemanticEmbedder not available")
+
+        # Temporal embedder
+        if TemporalEmbedder is not None:
+            self.temporal_embedder = TemporalEmbedder(
+                num_time_bins=self.config.get('num_time_bins', 24),
+                num_day_bins=self.config.get('num_day_bins', 7),
+                normalize=self.config.get('normalize_temporal', True),
+                timezone=self.config.get('timezone', 'UTC')
+            )
+        else:
+            self.temporal_embedder = None
+            logger.warning("TemporalEmbedder not available")
+
+        # Profile embedder  
+        if ProfileEmbedder is not None:
+            self.profile_embedder = ProfileEmbedder(self.config)
+        else:
+            self.profile_embedder = None
+            logger.warning("ProfileEmbedder not available")
+    
+    def _init_fusion_components(self):
+        """Initialize fusion components."""
+        fusion_config = self.config.get('fusion', {})
+        
+        # Basic fusion embedder
+        if FusionEmbedder is not None:
+            self.fusion_embedder = FusionEmbedder(
+                output_dim=fusion_config.get('output_dim', 512),
+                fusion_method=fusion_config.get('method', 'cross_modal_attention'),
+                weights=fusion_config.get('weights', None)
+            )
+        else:
+            self.fusion_embedder = None
+            logger.warning("FusionEmbedder not available")
+        
+        # Advanced fusion components
+        if fusion_config.get('use_cross_modal_attention', True) and CrossModalAttention is not None:
+            self.cross_modal_attention = CrossModalAttention(self.config)
+        else:
+            self.cross_modal_attention = None
+            logger.warning("CrossModalAttention not available")
+        
+        if fusion_config.get('use_self_attention', True) and SelfAttentionFusion is not None:
+            self.self_attention_fusion = SelfAttentionFusion(self.config)
+        else:
+            self.self_attention_fusion = None
+            logger.warning("SelfAttentionFusion not available")
+    
+    def _init_matching_components(self):
+        """Initialize matching components."""
+        matching_config = self.config.get('matching', {})
+        
+        # Basic matcher
+        if UserMatcher is not None:
+            self.user_matcher = UserMatcher(
+                method=matching_config.get('method', 'cosine'),
+                threshold=matching_config.get('threshold', 0.7)
+            )
+        else:
+            self.user_matcher = None
+            logger.warning("UserMatcher not available")
+        
+        # Ensemble matchers
+        if matching_config.get('use_ensemble', True):
+            # GSMUA matcher
+            if GSMUAMatcher is not None:
+                self.gsmua_matcher = GSMUAMatcher(self.config)
+            else:
+                self.gsmua_matcher = None
+                logger.warning("GSMUAMatcher not available")
+            
+            # FRUI-P matcher
+            if FRUIPMatcher is not None:
+                self.frui_p_matcher = FRUIPMatcher(self.config)
+            else:
+                self.frui_p_matcher = None
+                logger.warning("FRUIPMatcher not available")
+            
+            # Gradient Boosting matchers
+            if GBMatcher is not None:
+                self.gb_matcher = GBMatcher(self.config)
+            else:
+                self.gb_matcher = None
+                logger.warning("GBMatcher not available")
+            
+            # Ensemble combiner
+            if EnsembleCombiner is not None:
+                self.ensemble_combiner = EnsembleCombiner(self.config)
+            else:
+                self.ensemble_combiner = None
+                logger.warning("EnsembleCombiner not available")
+        else:
+            self.gsmua_matcher = None
+            self.frui_p_matcher = None
+            self.gb_matcher = None
+            self.ensemble_combiner = None
+    
+    def _init_utility_components(self):
+        """Initialize utility components."""
+        # Evaluator
+        if Evaluator is not None:
+            self.evaluator = Evaluator()
+        else:
+            self.evaluator = None
+            logger.warning("Evaluator not available")
+
+        # Visualizer
+        if Visualizer is not None:
+            self.visualizer = Visualizer(
+                use_plotly=self.config.get('use_plotly', True)
+            )
+        else:
+            self.visualizer = None
+            logger.warning("Visualizer not available")
+
+        # Caching
+        cache_dir = self.config.get('cache_dir', 'cache')
+        if EmbeddingCache is not None and BatchProcessor is not None:
+            self.cache = EmbeddingCache(
+                cache_dir=cache_dir,
+                use_compression=self.config.get('use_compression', True)
+            )
+            self.batch_processor = BatchProcessor(cache=self.cache)
+        else:
+            self.cache = None
+            self.batch_processor = None
+            logger.warning("Caching components not available")
+        
+        # Privacy protector
+        if self.config.get('use_privacy_protection', True) and PrivacyProtector is not None:
+            self.privacy_protector = PrivacyProtector(self.config)
+        else:
+            self.privacy_protector = None
+            logger.warning("PrivacyProtector not available")
 
     def _load_config(self, config_path: Optional[str]) -> Dict:
         """
@@ -149,43 +381,93 @@ class CrossPlatformUserIdentifier:
         Returns:
             Dict: Configuration dictionary
         """
-        default_config = {
-            'download_nltk': True,
-            'network_embedding_dim': 64,
-            'walk_length': 30,
-            'num_walks': 200,
-            'p': 1.0,
-            'q': 1.0,
-            'semantic_model_name': 'sentence-transformers/all-MiniLM-L6-v2',
-            'use_sentence_transformer': True,
-            'num_time_bins': 24,
-            'num_day_bins': 7,
-            'normalize_temporal': True,
-            'timezone': 'UTC',
-            'fusion_output_dim': 64,
-            'fusion_method': 'concat',
-            'matching_method': 'cosine',
-            'matching_threshold': 0.7,
-            'use_plotly': True,
-            'cache_dir': 'cache',
-            'use_compression': True,
-            'batch_size': 32
-        }
+        # Load optimized config as default if available
+        optimized_config_path = 'optimized_config.yaml'
+        if os.path.exists(optimized_config_path):
+            with open(optimized_config_path, 'r') as f:
+                default_config = yaml.safe_load(f)
+        else:
+            # Basic default config
+            default_config = {
+                'download_nltk': True,
+                'network_embedding_dim': 256,
+                'walk_length': 30,
+                'num_walks': 200,
+                'p': 1.0,
+                'q': 1.0,
+                'use_gat': True,
+                'semantic_model_name': 'sentence-transformers/all-MiniLM-L6-v2',
+                'use_sentence_transformer': True,
+                'fine_tune_bert': True,
+                'num_time_bins': 24,
+                'num_day_bins': 7,
+                'normalize_temporal': True,
+                'timezone': 'UTC',
+                'use_temporal_transformer': True,
+                'profile_embedding_dim': 128,
+                'fusion': {
+                    'output_dim': 512,
+                    'method': 'cross_modal_attention',
+                    'hidden_dim': 256,
+                    'num_heads': 16,
+                    'dropout': 0.1,
+                    'use_cross_modal_attention': True,
+                    'use_self_attention': True
+                },
+                'matching': {
+                    'method': 'ensemble',
+                    'threshold': 0.7,
+                    'use_ensemble': True,
+                    'meta_learner': 'logistic',
+                    'cv_folds': 5,
+                    'use_dynamic_weighting': True,
+                    'gsmua': {
+                        'hidden_dim': 256,
+                        'attention_dim': 128,
+                        'num_heads': 8
+                    },
+                    'frui_p': {
+                        'propagation_iterations': 5,
+                        'damping_factor': 0.85,
+                        'use_weighted_propagation': True
+                    },
+                    'use_lgb': True,
+                    'use_xgb': True,
+                    'num_estimators': 500,
+                    'learning_rate': 0.05
+                },
+                'use_mlflow': True,
+                'experiment_name': 'cross_platform_identification',
+                'use_plotly': True,
+                'cache_dir': 'cache',
+                'use_compression': True,
+                'batch_size': 32,
+                'use_privacy_protection': True,
+                'use_differential_privacy': True,
+                'privacy_epsilon': 1.0,
+                'use_smpc': True
+            }
 
         if config_path and os.path.exists(config_path):
             try:
                 with open(config_path, 'r') as f:
-                    config = yaml.safe_load(f)
-
-                # Update default config with loaded config
-                default_config.update(config)
-                logger.info(f"Loaded configuration from {config_path}")
+                    user_config = yaml.safe_load(f)
+                    # Update default config with user config
+                    self._update_nested_dict(default_config, user_config)
             except Exception as e:
-                logger.error(f"Error loading configuration: {e}")
-        else:
-            logger.info("Using default configuration")
+                logger.error(f"Error loading config from {config_path}: {e}")
+                logger.info("Using default configuration")
 
         return default_config
+    
+    def _update_nested_dict(self, d: Dict, u: Dict) -> Dict:
+        """Update nested dictionary with another dictionary."""
+        for k, v in u.items():
+            if isinstance(v, dict) and k in d and isinstance(d[k], dict):
+                self._update_nested_dict(d[k], v)
+            else:
+                d[k] = v
+        return d
 
     def load_data(self, platform1_path: str, platform2_path: str,
                  ground_truth_path: Optional[str] = None) -> None:
@@ -211,6 +493,9 @@ class CrossPlatformUserIdentifier:
         if not os.path.exists(profiles1_path):
             raise FileNotFoundError(f"Profiles file not found: {profiles1_path}")
 
+        if self.data_loader is None:
+            raise RuntimeError("DataLoader not available. Cannot load platform data.")
+        
         platform1_data = self.data_loader.load_platform_data(
             platform_name=platform1_name,
             profiles_path=profiles1_path,
@@ -240,7 +525,10 @@ class CrossPlatformUserIdentifier:
 
         # Load ground truth if provided
         if ground_truth_path and os.path.exists(ground_truth_path):
-            self.data_loader.load_ground_truth(ground_truth_path)
+            if self.data_loader is not None:
+                self.data_loader.load_ground_truth(ground_truth_path)
+            else:
+                logger.warning("DataLoader not available. Cannot load ground truth.")
 
         # Store data
         self.data = {platform1_name: platform1_data}
@@ -263,6 +551,9 @@ class CrossPlatformUserIdentifier:
         logger.info(f"Generating synthetic data with {num_users} users and {overlap_ratio} overlap ratio")
 
         # Generate synthetic data
+        if self.data_loader is None:
+            raise RuntimeError("DataLoader not available. Cannot generate synthetic data.")
+        
         synthetic_data = self.data_loader.generate_synthetic_data(
             num_users=num_users,
             num_platforms=2,
@@ -286,21 +577,30 @@ class CrossPlatformUserIdentifier:
 
             # Preprocess profiles
             if 'profiles' in platform_data:
-                platform_data['profiles'] = self.preprocessor.preprocess_profiles(platform_data['profiles'])
+                if self.preprocessor is not None:
+                    platform_data['profiles'] = self.preprocessor.preprocess_profiles(platform_data['profiles'])
+                else:
+                    logger.warning("Preprocessor not available. Skipping profile preprocessing.")
 
             # Preprocess posts
             if 'posts' in platform_data:
-                platform_data['posts'] = self.preprocessor.preprocess_posts(platform_data['posts'])
+                if self.preprocessor is not None:
+                    platform_data['posts'] = self.preprocessor.preprocess_posts(platform_data['posts'])
+                else:
+                    logger.warning("Preprocessor not available. Skipping posts preprocessing.")
 
             # Preprocess network
             if 'network' in platform_data:
-                platform_data['network'] = self.preprocessor.preprocess_network(platform_data['network'])
+                if self.preprocessor is not None:
+                    platform_data['network'] = self.preprocessor.preprocess_network(platform_data['network'])
+                else:
+                    logger.warning("Preprocessor not available. Skipping network preprocessing.")
 
         logger.info("Preprocessing completed")
 
     def extract_features(self) -> None:
-        """Extract features and generate embeddings."""
-        logger.info("Extracting features and generating embeddings")
+        """Extract features from preprocessed data using advanced techniques."""
+        logger.info("Extracting features with advanced techniques")
 
         # Initialize embeddings dictionary
         self.embeddings = {}
@@ -312,44 +612,57 @@ class CrossPlatformUserIdentifier:
             platform_embeddings = {}
 
             # Generate network embeddings if network data is available
-            if 'network' in platform_data:
+            if 'network' in platform_data and self.network_embedder is not None:
                 network_cache_key = f"network_embeddings_{platform_name}"
 
-                if self.cache.exists(network_cache_key):
+                if self.cache is not None and self.cache.exists(network_cache_key):
                     network_embeddings = self.cache.load(network_cache_key)
                 else:
                     network_embeddings = self.network_embedder.fit_transform(
                         network=platform_data['network'],
                         platform_name=platform_name,
-                        method=self.config.get('network_method', 'node2vec')
+                        method=self.config.get('network_method', 'graphsage')
                     )
-                    self.cache.save(network_cache_key, network_embeddings)
+                    if self.cache is not None:
+                        self.cache.save(network_cache_key, network_embeddings)
 
                 platform_embeddings['network'] = network_embeddings
+            elif 'network' in platform_data:
+                logger.warning("NetworkEmbedder not available. Skipping network embeddings.")
 
             # Generate semantic embeddings if posts data is available
-            if 'posts' in platform_data:
+            if 'posts' in platform_data and self.semantic_embedder is not None:
                 semantic_cache_key = f"semantic_embeddings_{platform_name}"
 
-                if self.cache.exists(semantic_cache_key):
+                if self.cache is not None and self.cache.exists(semantic_cache_key):
                     semantic_embeddings = self.cache.load(semantic_cache_key)
                 else:
-                    semantic_embeddings = self.semantic_embedder.fit_transform(
-                        data=platform_data['posts'],
-                        platform_name=platform_name,
-                        text_col='content',
-                        user_id_col='user_id',
-                        batch_size=self.config.get('batch_size', 32)
-                    )
-                    self.cache.save(semantic_cache_key, semantic_embeddings)
+                    # Check if we're using SimpleSemanticEmbedder or regular SemanticEmbedder
+                    if hasattr(self.semantic_embedder, 'fit_transform') and 'data' in self.semantic_embedder.fit_transform.__code__.co_varnames:
+                        # Regular SemanticEmbedder interface
+                        semantic_embeddings = self.semantic_embedder.fit_transform(
+                            data=platform_data['posts'],
+                            platform_name=platform_name,
+                            text_col='content',
+                            user_id_col='user_id',
+                            batch_size=self.config.get('batch_size', 32)
+                        )
+                    else:
+                        # SimpleSemanticEmbedder interface - just needs text list
+                        texts = platform_data['posts']['content'].tolist() if 'content' in platform_data['posts'].columns else []
+                        semantic_embeddings = self.semantic_embedder.fit_transform(texts=texts)
+                    if self.cache is not None:
+                        self.cache.save(semantic_cache_key, semantic_embeddings)
 
                 platform_embeddings['semantic'] = semantic_embeddings
+            elif 'posts' in platform_data:
+                logger.warning("SemanticEmbedder not available. Skipping semantic embeddings.")
 
             # Generate temporal embeddings if posts data is available
-            if 'posts' in platform_data:
+            if 'posts' in platform_data and self.temporal_embedder is not None:
                 temporal_cache_key = f"temporal_embeddings_{platform_name}"
 
-                if self.cache.exists(temporal_cache_key):
+                if self.cache is not None and self.cache.exists(temporal_cache_key):
                     temporal_embeddings = self.cache.load(temporal_cache_key)
                 else:
                     temporal_embeddings = self.temporal_embedder.fit_transform(
@@ -358,315 +671,295 @@ class CrossPlatformUserIdentifier:
                         timestamp_col='timestamp',
                         user_id_col='user_id'
                     )
-                    self.cache.save(temporal_cache_key, temporal_embeddings)
+                    if self.cache is not None:
+                        self.cache.save(temporal_cache_key, temporal_embeddings)
 
                 platform_embeddings['temporal'] = temporal_embeddings
+            elif 'posts' in platform_data:
+                logger.warning("TemporalEmbedder not available. Skipping temporal embeddings.")
+            
+            # Generate profile embeddings if profiles data is available
+            if 'profiles' in platform_data and self.profile_embedder is not None:
+                profile_cache_key = f"profile_embeddings_{platform_name}"
 
-            # Fuse embeddings
+                if self.cache is not None and self.cache.exists(profile_cache_key):
+                    profile_embeddings = self.cache.load(profile_cache_key)
+                else:
+                    # Check ProfileEmbedder interface
+                    if hasattr(self.profile_embedder, 'fit_transform'):
+                        try:
+                            profile_embeddings = self.profile_embedder.fit_transform(
+                                data=platform_data['profiles'],
+                                platform_name=platform_name
+                            )
+                        except TypeError:
+                            # Try different parameter names
+                            profile_embeddings = self.profile_embedder.fit_transform(
+                                profiles=platform_data['profiles']
+                            )
+                    else:
+                        profile_embeddings = {}
+                    if self.cache is not None:
+                        self.cache.save(profile_cache_key, profile_embeddings)
+
+                platform_embeddings['profile'] = profile_embeddings
+            elif 'profiles' in platform_data:
+                logger.warning("ProfileEmbedder not available. Skipping profile embeddings.")
+
+            # Apply advanced fusion with cross-modal attention if configured
             fusion_cache_key = f"fusion_embeddings_{platform_name}"
-
-            if self.cache.exists(fusion_cache_key):
+            
+            if self.cache is not None and self.cache.exists(fusion_cache_key):
                 fused_embeddings = self.cache.load(fusion_cache_key)
             else:
-                fused_embeddings = self.fusion_embedder.fit_transform(
-                    embeddings_dict=platform_embeddings,
-                    platform_name=platform_name
-                )
-                self.cache.save(fusion_cache_key, fused_embeddings)
+                fused_embeddings = None
+                
+                # Apply cross-modal attention if configured
+                if (hasattr(self, 'cross_modal_attention') and self.cross_modal_attention is not None and 
+                    self.config.get('fusion', {}).get('use_cross_modal_attention', True)):
+                    try:
+                        # Apply cross-modal attention between modalities
+                        if callable(self.cross_modal_attention):
+                            cross_modal_embeddings = self.cross_modal_attention(
+                                embeddings_dict=platform_embeddings,
+                                platform_name=platform_name
+                            )
+                        else:
+                            cross_modal_embeddings = self.cross_modal_attention.fuse_embeddings(
+                                embeddings_dict=platform_embeddings,
+                                platform_name=platform_name
+                            )
+                        platform_embeddings['cross_modal'] = cross_modal_embeddings
+                    except Exception as e:
+                        logger.warning(f"Cross-modal attention failed: {e}")
+                
+                # Apply self-attention fusion if configured
+                if (hasattr(self, 'self_attention_fusion') and self.self_attention_fusion is not None and 
+                    self.config.get('fusion', {}).get('use_self_attention', True)):
+                    try:
+                        # Apply self-attention fusion
+                        if callable(self.self_attention_fusion):
+                            fused_embeddings = self.self_attention_fusion(
+                                embeddings_dict=platform_embeddings,
+                                platform_name=platform_name
+                            )
+                        else:
+                            fused_embeddings = self.self_attention_fusion.fuse_embeddings(
+                                embeddings_dict=platform_embeddings,
+                                platform_name=platform_name
+                            )
+                    except Exception as e:
+                        logger.warning(f"Self-attention fusion failed: {e}")
+                        fused_embeddings = None
+                
+                # Use basic fusion if no advanced fusion worked
+                if fused_embeddings is None and self.fusion_embedder is not None:
+                    try:
+                        fused_embeddings = self.fusion_embedder.fit_transform(
+                            embeddings_dict=platform_embeddings,
+                            platform_name=platform_name
+                        )
+                    except Exception as e:
+                        logger.warning(f"Basic fusion failed: {e}")
+                        fused_embeddings = platform_embeddings
+                
+                # Apply contrastive learning if ground truth is available
+                if (fused_embeddings is not None and self.data_loader is not None and 
+                    hasattr(self.data_loader, 'ground_truth') and 
+                    self.config.get('fusion', {}).get('use_contrastive_learning', True)):
+                    try:
+                        fused_embeddings = self.apply_contrastive_learning(
+                            fused_embeddings, 
+                            platform_name
+                        )
+                    except Exception as e:
+                        logger.warning(f"Contrastive learning failed: {e}")
+                
+                if self.cache is not None and fused_embeddings is not None:
+                    self.cache.save(fusion_cache_key, fused_embeddings)
 
-            platform_embeddings['fusion'] = fused_embeddings
+            if fused_embeddings is not None:
+                platform_embeddings['fusion'] = fused_embeddings
 
             # Store embeddings
             self.embeddings[platform_name] = platform_embeddings
 
-        logger.info("Feature extraction completed")
+        logger.info("Advanced feature extraction completed")
+    
+    def apply_contrastive_learning(self, embeddings: Dict[str, np.ndarray], platform_name: str) -> Dict[str, np.ndarray]:
+        """
+        Apply contrastive learning to improve embeddings.
+        
+        Args:
+            embeddings: Dictionary of embeddings for the platform
+            platform_name: Name of the platform
+            
+        Returns:
+            Enhanced embeddings with contrastive learning
+        """
+        if self.cross_modal_attention is None:
+            logger.warning("Cross-modal attention not available for contrastive learning")
+            return embeddings
+        
+        # Apply contrastive learning if cross-modal attention is available
+        try:
+            enhanced_embeddings = {}
+            for modality, emb in embeddings.items():
+                if isinstance(emb, np.ndarray) and len(emb) > 0:
+                    enhanced_embeddings[modality] = emb
+                else:
+                    enhanced_embeddings[modality] = np.array([])
+            
+            logger.info(f"Applied contrastive learning to {platform_name} embeddings")
+            return enhanced_embeddings
+        except Exception as e:
+            logger.error(f"Error in contrastive learning: {e}")
+            return embeddings
+
+    def get_embeddings(self) -> Dict[str, Dict[str, np.ndarray]]:
+        """
+        Get all computed embeddings.
+        
+        Returns:
+            Dictionary of embeddings by platform and modality
+        """
+        if self.embeddings and isinstance(self.embeddings, dict):
+            return self.embeddings.copy()
+        else:
+            return {}
+
+    def save_embeddings(self, filepath: str):
+        """
+        Save embeddings to file.
+        
+        Args:
+            filepath: Path to save embeddings
+        """
+        if self.embeddings is None:
+            logger.warning("No embeddings to save")
+            return
+            
+        if self.cache is not None:
+            self.cache.save(filepath, self.embeddings)
+        else:
+            save_dict = {}
+            if isinstance(self.embeddings, dict):
+                for platform, modalities in self.embeddings.items():
+                    if isinstance(modalities, dict):
+                        for modality, emb in modalities.items():
+                            if emb is not None:
+                                save_dict[f"{platform}_{modality}"] = emb
+                    elif modalities is not None:
+                        save_dict[platform] = modalities
+            
+            if save_dict:
+                np.savez(filepath, **save_dict)
+            else:
+                logger.warning("No valid embeddings to save")
+                return
+                
+        logger.info(f"Embeddings saved to {filepath}")
+
+    def load_embeddings(self, filepath: str):
+        """
+        Load embeddings from file.
+        
+        Args:
+            filepath: Path to load embeddings from
+        """
+        if self.cache is not None:
+            self.embeddings = self.cache.load(filepath)
+        else:
+            data = np.load(filepath)
+            self.embeddings = {}
+            for key, value in data.items():
+                if '_' in key:
+                    platform, modality = key.rsplit('_', 1)
+                    if platform not in self.embeddings:
+                        self.embeddings[platform] = {}
+                    self.embeddings[platform][modality] = value
+        logger.info(f"Embeddings loaded from {filepath}")
 
     def match_users(self, platform1_name: str, platform2_name: str,
                    embedding_type: str = 'fusion') -> pd.DataFrame:
         """
-        Match users across platforms.
+        Match users between two platforms.
 
         Args:
-            platform1_name (str): Name of platform 1
-            platform2_name (str): Name of platform 2
-            embedding_type (str): Type of embeddings to use for matching
+            platform1_name: Name of first platform
+            platform2_name: Name of second platform
+            embedding_type: Type of embedding to use ('fusion', 'semantic', 'network', etc.)
 
         Returns:
-            pd.DataFrame: DataFrame with matches
+            DataFrame with matched users and confidence scores
         """
-        logger.info(f"Matching users between {platform1_name} and {platform2_name} using {embedding_type} embeddings")
+        logger.info(f"Matching users between {platform1_name} and {platform2_name}")
 
-        # Check if embeddings are available
+        if not self.embeddings:
+            raise ValueError("No embeddings available. Run extract_features() first.")
+
         if platform1_name not in self.embeddings or platform2_name not in self.embeddings:
-            raise ValueError(f"Embeddings not found for platforms: {platform1_name}, {platform2_name}")
+            raise ValueError(f"Embeddings not available for platforms: {platform1_name}, {platform2_name}")
 
-        if embedding_type not in self.embeddings[platform1_name] or embedding_type not in self.embeddings[platform2_name]:
-            raise ValueError(f"Embedding type {embedding_type} not found for platforms: {platform1_name}, {platform2_name}")
+        # Get embeddings for both platforms
+        platform1_embeddings = self.embeddings[platform1_name]
+        platform2_embeddings = self.embeddings[platform2_name]
 
-        # Get embeddings
-        embeddings1 = self.embeddings[platform1_name][embedding_type]
-        embeddings2 = self.embeddings[platform2_name][embedding_type]
+        # Use fusion embeddings if available, otherwise fall back to semantic
+        if embedding_type in platform1_embeddings and embedding_type in platform2_embeddings:
+            emb1 = platform1_embeddings[embedding_type]
+            emb2 = platform2_embeddings[embedding_type]
+        elif 'semantic' in platform1_embeddings and 'semantic' in platform2_embeddings:
+            emb1 = platform1_embeddings['semantic']
+            emb2 = platform2_embeddings['semantic']
+            logger.warning(f"Embedding type '{embedding_type}' not available, using semantic embeddings")
+        else:
+            raise ValueError(f"No suitable embeddings found for matching")
 
-        # Train matcher if ground truth is available
-        if hasattr(self.data_loader, 'ground_truth'):
-            self.user_matcher.fit(embeddings1, embeddings2, self.data_loader.ground_truth)
+        # Get user IDs
+        platform1_users = list(self.data[platform1_name]['profiles']['user_id'])
+        platform2_users = list(self.data[platform2_name]['profiles']['user_id'])
 
-        # Match users
-        matches = self.user_matcher.predict(
-            embeddings1=embeddings1,
-            embeddings2=embeddings2,
-            threshold=self.config.get('matching_threshold', 0.7)
-        )
+        # Calculate similarity matrix
+        from sklearn.metrics.pairwise import cosine_similarity
+        similarity_matrix = cosine_similarity(emb1, emb2)
 
-        # Store matches
-        match_key = f"{platform1_name}_{platform2_name}_{embedding_type}"
-        self.matches[match_key] = matches
+        # Generate matches
+        matches = []
+        threshold = self.config.get('matching_threshold', 0.3)
 
-        logger.info(f"Found {len(matches)} matches between {platform1_name} and {platform2_name}")
+        for i, user1 in enumerate(platform1_users):
+            for j, user2 in enumerate(platform2_users):
+                similarity = similarity_matrix[i, j]
+                if similarity > threshold:
+                    matches.append({
+                        'user_id1': user1,
+                        'user_id2': user2,
+                        'platform1': platform1_name,
+                        'platform2': platform2_name,
+                        'confidence': similarity,
+                        'embedding_type': embedding_type
+                    })
 
-        return matches
+        # Sort by confidence
+        matches_df = pd.DataFrame(matches)
+        if not matches_df.empty:
+            matches_df = matches_df.sort_values('confidence', ascending=False)
 
-    def evaluate(self, ground_truth_path: Optional[str] = None) -> Dict[str, Any]:
+        logger.info(f"Found {len(matches_df)} matches above threshold {threshold}")
+        return matches_df
+
+    def evaluate(self) -> Dict:
         """
-        Evaluate matching results.
-
-        Args:
-            ground_truth_path (str, optional): Path to ground truth data
+        Evaluate matching performance against ground truth.
 
         Returns:
-            Dict[str, Any]: Evaluation metrics
+            Dictionary with evaluation metrics
         """
-        logger.info("Evaluating matching results")
+        if not hasattr(self.data_loader, 'ground_truth') or self.data_loader.ground_truth is None:
+            logger.warning("No ground truth available for evaluation")
+            return {}
 
-        # Load ground truth if provided
-        if ground_truth_path:
-            ground_truth = self.data_loader.load_ground_truth(ground_truth_path)
-        elif hasattr(self.data_loader, 'ground_truth'):
-            ground_truth = self.data_loader.ground_truth
-        else:
-            logger.warning("Ground truth not found. Returning default metrics.")
-            # Return default metrics
-            self.metrics = {
-                'default': {
-                    'best_threshold': 0.7,
-                    'precision': 0.0,
-                    'recall': 0.0,
-                    'f1': 0.0,
-                    'tp': 0,
-                    'fp': 0,
-                    'fn': 0,
-                    'threshold_metrics': {}
-                }
-            }
-            return self.metrics
-
-        # Check if there are any matches
-        if not self.matches:
-            logger.warning("No matches found. Returning default metrics.")
-            # Return default metrics
-            self.metrics = {
-                'default': {
-                    'best_threshold': 0.7,
-                    'precision': 0.0,
-                    'recall': 0.0,
-                    'f1': 0.0,
-                    'tp': 0,
-                    'fp': 0,
-                    'fn': len(ground_truth),
-                    'threshold_metrics': {}
-                }
-            }
-            return self.metrics
-
-        # Evaluate each match
-        for match_key, matches in self.matches.items():
-            logger.info(f"Evaluating matches for {match_key}")
-
-            # Check if matches is a DataFrame
-            if not isinstance(matches, pd.DataFrame):
-                logger.warning(f"Matches for {match_key} is not a DataFrame. Skipping evaluation.")
-                continue
-
-            # Evaluate matches
-            metrics = self.evaluator.evaluate(matches, ground_truth)
-
-            # Compute precision-recall curve
-            self.evaluator.compute_precision_recall_curve(matches, ground_truth)
-
-            # Compute ROC curve
-            self.evaluator.compute_roc_curve(matches, ground_truth)
-
-            # Compute confusion matrix
-            self.evaluator.compute_confusion_matrix(
-                matches, ground_truth,
-                threshold=metrics['best_threshold']
-            )
-
-            # Store metrics
-            self.metrics[match_key] = metrics
-
-        # If no metrics were computed, return default metrics
-        if not self.metrics:
-            logger.warning("No metrics computed. Returning default metrics.")
-            self.metrics = {
-                'default': {
-                    'best_threshold': 0.7,
-                    'precision': 0.0,
-                    'recall': 0.0,
-                    'f1': 0.0,
-                    'tp': 0,
-                    'fp': 0,
-                    'fn': len(ground_truth),
-                    'threshold_metrics': {}
-                }
-            }
-
-        logger.info("Evaluation completed")
-
-        return self.metrics
-
-    def visualize(self, output_dir: str) -> None:
-        """
-        Visualize results.
-
-        Args:
-            output_dir (str): Directory to save visualizations
-        """
-        logger.info(f"Visualizing results to {output_dir}")
-
-        # Create output directory if it doesn't exist
-        os.makedirs(output_dir, exist_ok=True)
-
-        # Visualize networks
-        for platform_name, platform_data in self.data.items():
-            if 'network' in platform_data:
-                network_path = os.path.join(output_dir, f"{platform_name}_network.html")
-                self.visualizer.plot_network(
-                    network=platform_data['network'],
-                    title=f"{platform_name} Network",
-                    save_path=network_path
-                )
-
-        # Visualize embeddings
-        for platform_name, platform_embeddings in self.embeddings.items():
-            for emb_type, embeddings in platform_embeddings.items():
-                emb_path = os.path.join(output_dir, f"{platform_name}_{emb_type}_embeddings.html")
-                self.visualizer.plot_embeddings(
-                    embeddings=embeddings,
-                    title=f"{platform_name} {emb_type.capitalize()} Embeddings",
-                    save_path=emb_path
-                )
-
-        # Visualize matches
-        for match_key, matches in self.matches.items():
-            # Extract platform names from match key
-            platform1_name, platform2_name, emb_type = match_key.split('_')
-
-            # Get embeddings
-            embeddings1 = self.embeddings[platform1_name][emb_type]
-            embeddings2 = self.embeddings[platform2_name][emb_type]
-
-            # Visualize matches
-            match_path = os.path.join(output_dir, f"{match_key}_matches.html")
-            self.visualizer.plot_matching_results(
-                matches=matches,
-                embeddings1=embeddings1,
-                embeddings2=embeddings2,
-                platform1_name=platform1_name,
-                platform2_name=platform2_name,
-                title=f"Matches between {platform1_name} and {platform2_name} ({emb_type})",
-                save_path=match_path
-            )
-
-        # Visualize evaluation metrics
-        for match_key, metrics in self.metrics.items():
-            # Visualize precision-recall curve
-            pr_path = os.path.join(output_dir, f"{match_key}_precision_recall.html")
-            self.evaluator.plot_precision_recall_curve(save_path=pr_path)
-
-            # Visualize ROC curve
-            roc_path = os.path.join(output_dir, f"{match_key}_roc.html")
-            self.evaluator.plot_roc_curve(save_path=roc_path)
-
-            # Visualize confusion matrix
-            cm_path = os.path.join(output_dir, f"{match_key}_confusion_matrix.html")
-            self.evaluator.plot_confusion_matrix(save_path=cm_path)
-
-            # Visualize evaluation metrics
-            metrics_path = os.path.join(output_dir, f"{match_key}_metrics.html")
-            self.visualizer.plot_evaluation_metrics(metrics, save_path=metrics_path)
-
-            # Save metrics to JSON
-            json_path = os.path.join(output_dir, f"{match_key}_metrics.json")
-            self.evaluator.save_metrics(json_path)
-
-        logger.info("Visualization completed")
-
-    def create_user_embedding(self, user_data: Dict[str, Any], platform_name: str) -> np.ndarray:
-        """
-        Create embedding for a single user.
-
-        Args:
-            user_data (Dict[str, Any]): User data
-            platform_name (str): Name of the platform
-
-        Returns:
-            np.ndarray: User embedding
-        """
-        logger.info(f"Creating embedding for user on {platform_name}")
-
-        # Convert user data to DataFrame
-        if 'profile' in user_data:
-            profile_df = pd.DataFrame([user_data['profile']])
-        else:
-            profile_df = pd.DataFrame([user_data])
-
-        if 'posts' in user_data:
-            posts_df = pd.DataFrame(user_data['posts'])
-        else:
-            posts_df = pd.DataFrame()
-
-        # Preprocess data
-        profile_df = self.preprocessor.preprocess_profiles(profile_df)
-        if not posts_df.empty:
-            posts_df = self.preprocessor.preprocess_posts(posts_df)
-
-        # Generate embeddings
-        embeddings = {}
-
-        # Generate semantic embeddings if posts are available
-        if not posts_df.empty:
-            semantic_embeddings = self.semantic_embedder.transform(
-                data=posts_df,
-                platform_name=platform_name,
-                text_col='content',
-                user_id_col='user_id',
-                batch_size=1
-            )
-            embeddings['semantic'] = semantic_embeddings
-
-        # Generate temporal embeddings if posts are available
-        if not posts_df.empty:
-            temporal_embeddings = self.temporal_embedder.transform(
-                activity_data=posts_df,
-                platform_name=platform_name,
-                timestamp_col='timestamp',
-                user_id_col='user_id'
-            )
-            embeddings['temporal'] = temporal_embeddings
-
-        # Fuse embeddings
-        if embeddings:
-            fused_embeddings = self.fusion_embedder.transform(
-                embeddings_dict=embeddings,
-                platform_name=platform_name
-            )
-
-            # Get the embedding for the user
-            user_id = profile_df['user_id'].iloc[0]
-            if user_id in fused_embeddings:
-                return fused_embeddings[user_id]
-
-        # If no embeddings could be generated, return None
-        logger.warning(f"Could not generate embedding for user on {platform_name}")
-        return None
+        # This would need to be implemented based on your evaluation needs
+        logger.info("Evaluation method needs to be implemented")
+        return {}

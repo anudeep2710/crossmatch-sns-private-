@@ -1,0 +1,146 @@
+user_id,username,name,title,company,location,followers_count,following_count,profile_url
+linkedin_nadella,satyanadella,Satya Nadella,Chairman and CEO,Microsoft,Redmond WA,11000000.0,500.0,linkedin.com/in/satyanadella
+linkedin_pichai,sundarpichai,Sundar Pichai,CEO,Google and Alphabet,Mountain View CA,3500000.0,300.0,linkedin.com/in/sundarpichai
+linkedin_zuckerberg,zuck,Mark Zuckerberg,Founder and CEO,Meta,Menlo Park CA,7800000.0,400.0,linkedin.com/in/zuck
+linkedin_musk,elonmusk,Elon Musk,CEO,"Tesla, SpaceX, X Corp, and Neuralink",Austin TX,9200000.0,250.0,linkedin.com/in/elonmusk
+linkedin_cook,timcook,Tim Cook,CEO,Apple,Cupertino CA,4500000.0,200.0,linkedin.com/in/timcook
+linkedin_hoffman,reidhoffman,Reid Hoffman,"Co-Founder, Partner","LinkedIn, Greylock",Palo Alto CA,3200000.0,800.0,linkedin.com/in/reidhoffman
+linkedin_mosseri,mosseri,Adam Mosseri,Head of Instagram,Meta,San Francisco CA,450000.0,1200.0,linkedin.com/in/mosseri
+linkedin_sandberg,sherylsandberg,Sheryl Sandberg,"Former COO, Founder","Meta, LeanIn.org",Menlo Park CA,2800000.0,750.0,linkedin.com/in/sherylsandberg
+linkedin_hastings,reedhastings,Reed Hastings,Co-founder and Executive Chairman,Netflix,Los Gatos CA,1200000.0,300.0,linkedin.com/in/reedhastings
+linkedin_benioff,marcbenioff,Marc Benioff,Chair and CEO,Salesforce,San Francisco CA,1800000.0,600.0,linkedin.com/in/marcbenioff
+linkedin_altman,sama,Sam Altman,CEO,OpenAI,San Francisco CA,1500000.0,450.0,linkedin.com/in/altmansam
+linkedin_huang,jensenhhuang,Jensen Huang,Founder and CEO,NVIDIA,Santa Clara CA,2100000.0,180.0,linkedin.com/in/jensenhhuang
+linkedin_wojcicki,susanwojcicki,Susan Wojcicki,"Former CEO, Board Member",YouTube,Los Altos CA,980000.0,320.0,linkedin.com/in/susanwojcicki
+linkedin_ahrendts,angelaahrendts,Angela Ahrendts,"Former SVP, Former CEO","Apple, Burberry",London UK,750000.0,280.0,linkedin.com/in/angelaahrendts
+linkedin_porat,ruthporat,Ruth Porat,CFO,Alphabet and Google,Mountain View CA,620000.0,210.0,linkedin.com/in/ruthporat
+linkedin_roslansky,ryanroslansky,Ryan Roslansky,CEO,LinkedIn,Redwood City CA,1100000.0,850.0,linkedin.com/in/ryanroslansky
+linkedin_spiegel,evanspiegel,Evan Spiegel,Co-founder and CEO,Snap Inc.,Los Angeles CA,890000.0,320.0,linkedin.com/in/evanspiegel
+linkedin_dorsey,jackdorsey,Jack Dorsey,Co-founder,Twitter and Block,San Francisco CA,2400000.0,280.0,linkedin.com/in/jackdorsey
+linkedin_koum,jankoum,Jan Koum,Co-founder,WhatsApp,Mountain View CA,680000.0,120.0,linkedin.com/in/jankoum
+linkedin_systrom,kevin,Kevin Systrom,Co-founder,Instagram,San Francisco CA,750000.0,450.0,linkedin.com/in/kevin
+linkedin_parag,paragagrawal,Parag Agrawal,Former CEO,Twitter,San Francisco CA,580000.0,250.0,linkedin.com/in/paragagrawal
+linkedin_adam,adamdangelo,Adam D'Angelo,CEO and Co-founder,Quora,Mountain View CA,420000.0,180.0,linkedin.com/in/adamdangelo
+linkedin_brian,brianchesky,Brian Chesky,Co-founder and CEO,Airbnb,San Francisco CA,950000.0,320.0,linkedin.com/in/brianchesky
+linkedin_drew,drewhouston,Drew Houston,Co-founder and CEO,Dropbox,San Francisco CA,680000.0,210.0,linkedin.com/in/drewhouston
+linkedin_daniel,danielek,Daniel Ek,CEO and Co-founder,Spotify,Stockholm Sweden,720000.0,280.0,linkedin.com/in/danielek
+linkedin_dara,darak,Dara Khosrowshahi,CEO,Uber,San Francisco CA,850000.0,230.0,linkedin.com/in/darak
+linkedin_stewart,stewartbutterfield,Stewart Butterfield,Co-founder,Slack,Vancouver Canada,520000.0,310.0,linkedin.com/in/stewartbutterfield
+linkedin_aaron,aaronlevie,Aaron Levie,Co-founder and CEO,Box,Redwood City CA,490000.0,270.0,linkedin.com/in/aaronlevie
+linkedin_whitney,whitneywolfe,Whitney Wolfe Herd,Founder,Bumble,Austin TX,680000.0,350.0,linkedin.com/in/whitneywolfe
+linkedin_tobias,tobiasluetke,Tobias Lütke,Co-founder and CEO,Shopify,Ottawa Canada,620000.0,240.0,linkedin.com/in/tobiasluetke
+linkedin_werner,wernerv,Werner Vogels,CTO,Amazon,Seattle WA,780000.0,180.0,linkedin.com/in/wernerv
+linkedin_meredith,meredithw,Meredith Whittaker,President,Signal Foundation,San Francisco CA,320000.0,290.0,linkedin.com/in/meredithw
+linkedin_mike,mikeschroepfer,Mike Schroepfer,Former CTO,Meta,Menlo Park CA,450000.0,210.0,linkedin.com/in/mikeschroepfer
+linkedin_andrew,andrewng,Andrew Ng,Founder,Landing AI,Palo Alto CA,890000.0,320.0,linkedin.com/in/andrewng
+linkedin_fei,feifeiliu,Fei-Fei Li,Co-Director,Stanford HAI,Stanford CA,680000.0,280.0,linkedin.com/in/feifeiliu
+linkedin_amy,amyhood,Amy Hood,CFO,Microsoft,Redmond WA,520000.0,150.0,linkedin.com/in/amyhood
+linkedin_sarah,sarahfriar,Sarah Friar,CEO,Nextdoor,San Francisco CA,420000.0,310.0,linkedin.com/in/sarahfriar
+linkedin_gwynne,gwynnesh,Gwynne Shotwell,President and COO,SpaceX,Hawthorne CA,580000.0,120.0,linkedin.com/in/gwynnesh
+linkedin_shantanu,shantanun,Shantanu Narayen,Chairman and CEO,Adobe,San Jose CA,720000.0,180.0,linkedin.com/in/shantanun
+linkedin_safra,safracatz,Safra Catz,CEO,Oracle,Redwood City CA,480000.0,90.0,linkedin.com/in/safracatz
+linkedin_jay,jayparikh,Jay Parikh,Former VP of Engineering,Meta,Menlo Park CA,320000.0,280.0,linkedin.com/in/jayparikh
+linkedin_diane,dianeb,Diane Bryant,Chairman and CEO,NovaSignal,Los Angeles CA,420000.0,210.0,linkedin.com/in/dianeb
+linkedin_david,davidm,David Marcus,CEO and Founder,Lightspark,San Francisco CA,580000.0,320.0,linkedin.com/in/davidm
+linkedin_marissa,marissamayer,Marissa Mayer,Co-founder,Sunshine,Palo Alto CA,920000.0,280.0,linkedin.com/in/marissamayer
+linkedin_brian2,brianarmstrong,Brian Armstrong,Co-founder and CEO,Coinbase,San Francisco CA,680000.0,230.0,linkedin.com/in/brianarmstrong
+linkedin_melanie,melaniew,Melanie Perkins,Co-founder and CEO,Canva,Sydney Australia,720000.0,350.0,linkedin.com/in/melaniew
+linkedin_tony,tonyfadell,Tony Fadell,Principal,Future Shape,Paris France,580000.0,270.0,linkedin.com/in/tonyfadell
+linkedin_jeff,jeffweiner,Jeff Weiner,Executive Chairman,LinkedIn,Palo Alto CA,950000.0,420.0,linkedin.com/in/jeffweiner
+linkedin_patrick,patricks,Patrick Spence,CEO,Sonos,Santa Barbara CA,320000.0,180.0,linkedin.com/in/patricks
+linkedin_eric,ericyuan,Eric Yuan,Founder and CEO,Zoom,San Jose CA,780000.0,250.0,linkedin.com/in/ericyuan
+linkedin_aparna,aparnac,Aparna Chennapragada,Former Chief Product Officer,Robinhood,Menlo Park CA,380000.0,310.0,linkedin.com/in/aparnac
+linkedin_anil,anildash,Anil Dash,CEO,Glitch,New York NY,520000.0,680.0,linkedin.com/in/anildash
+linkedin_alex,alexstamos,Alex Stamos,Director,Stanford Internet Observatory,Stanford CA,420000.0,350.0,linkedin.com/in/alexstamos
+linkedin_ellen,ellenp,Ellen Pao,CEO,Project Include,San Francisco CA,380000.0,290.0,linkedin.com/in/ellenp
+linkedin_chamath,chamathp,Chamath Palihapitiya,CEO,Social Capital,Palo Alto CA,720000.0,180.0,linkedin.com/in/chamathp
+linkedin_katie,katieh,Katie Haun,Founder and CEO,Haun Ventures,Menlo Park CA,420000.0,230.0,linkedin.com/in/katieh
+linkedin_chris,chrisd,Chris Dixon,General Partner,Andreessen Horowitz,Menlo Park CA,580000.0,320.0,linkedin.com/in/chrisd
+linkedin_fred,fredwilson,Fred Wilson,Partner,Union Square Ventures,New York NY,680000.0,420.0,linkedin.com/in/fredwilson
+linkedin_aileen,aileenlee,Aileen Lee,Founder and Managing Partner,Cowboy Ventures,Palo Alto CA,520000.0,350.0,linkedin.com/in/aileenlee
+linkedin_kara,karas,Kara Swisher,Host,On with Kara Swisher,San Francisco CA,780000.0,580.0,linkedin.com/in/karas
+linkedin_allie,alliekmiller,Allie K. Miller,AI Advisor and Angel Investor,Fortune 500 Companies,San Francisco CA,2000000.0,450.0,linkedin.com/in/alliekmiller
+linkedin_adam_grant,adamgrant,Adam Grant,Organizational Psychologist,Wharton,Philadelphia PA,4500000.0,320.0,linkedin.com/in/adammgrant
+linkedin_anna,annajmcdougall,Anna J McDougall,Software Engineering Manager,HelloBetter,Berlin Germany,180000.0,750.0,linkedin.com/in/annajmcdougall
+linkedin_sonya,sonyabarlow,Sonya Barlow,Tech Entrepreneur,LMF NETWORK,London UK,250000.0,1200.0,linkedin.com/in/sonyabarlow
+linkedin_meghana,meghanadhar,Meghana Dhar,"Strategic Advisor, Keynote Speaker",Ex-Instagram & Snap,San Francisco CA,320000.0,680.0,linkedin.com/in/meghanadhar
+linkedin_divas,divasgupta,Divas Gupta,Public Speaking Coach,Ikigai Learning,Mumbai India,150000.0,850.0,linkedin.com/in/divasgupta
+linkedin_lisa,lisadeluca,Lisa Seacat DeLuca,Distinguished Engineer,IBM Watson,New York NY,450000.0,320.0,linkedin.com/in/lisaaseacat
+linkedin_manu,manugoswami,Manu Goswami,CEO,SuperFan Inc.,Toronto Canada,380000.0,750.0,linkedin.com/in/manugoswami
+linkedin_naomi,naomisimson,Naomi Simson,Co-Founder,Big Red Group,Sydney Australia,290000.0,420.0,linkedin.com/in/naomisimson
+linkedin_gergely,gergelyorosz,Gergely Orosz,Tech Writer,The Pragmatic Engineer,Amsterdam Netherlands,420000.0,580.0,linkedin.com/in/gergelyorosz
+linkedin_dhh,dhh,David Heinemeier Hansson,Creator of Ruby on Rails,37signals,Copenhagen Denmark,350000.0,210.0,linkedin.com/in/dhh
+linkedin_scott,scottfarquhar,Scott Farquhar,Co-founder and Co-CEO,Atlassian,Sydney Australia,280000.0,350.0,linkedin.com/in/scottfarquhar
+linkedin_rachel,rachelthomas,Rachel Thomas,AI Researcher,Fast.ai,San Francisco CA,180000.0,420.0,linkedin.com/in/rachel-thomas-942a7923
+linkedin_cassie,cassiekozykrov,Cassie Kozyrkov,Chief Decision Scientist,Google,Mountain View CA,320000.0,580.0,linkedin.com/in/kozyrkov
+linkedin_james,jamessmith,James Smith,Senior Software Engineer,Microsoft,Seattle WA,85000.0,320.0,linkedin.com/in/jamessmith
+linkedin_priya,priyasharma,Priya Sharma,Product Manager,Amazon,Seattle WA,120000.0,450.0,linkedin.com/in/priyasharma
+linkedin_michael,michaelchen,Michael Chen,Data Scientist,Netflix,Los Angeles CA,95000.0,380.0,linkedin.com/in/michaelchen
+linkedin_sarah_j,sarahjohnson,Sarah Johnson,UX Designer,Apple,Cupertino CA,110000.0,420.0,linkedin.com/in/sarahjohnson
+linkedin_david_k,davidkim,David Kim,Frontend Developer,Spotify,New York NY,75000.0,350.0,linkedin.com/in/davidkim
+linkedin_emily,emilyzhang,Emily Zhang,Machine Learning Engineer,Meta,Menlo Park CA,130000.0,280.0,linkedin.com/in/emilyzhang
+linkedin_james_smith2,jamessmith2,James Smith,Chief Medical Officer,Mayo Clinic,Rochester MN,45000.0,180.0,linkedin.com/in/james-smith-md
+linkedin_james_smith3,jsmith3,James Smith,Professor of Economics,Stanford University,Stanford CA,65000.0,250.0,linkedin.com/in/james-smith-econ
+linkedin_sarah_johnson2,sarahjohnson2,Sarah Johnson,Marketing Director,Nike,Portland OR,78000.0,320.0,linkedin.com/in/sarah-johnson-marketing
+linkedin_sarah_johnson3,sjohnson3,Sarah Johnson,Senior Architect,Foster + Partners,London UK,42000.0,180.0,linkedin.com/in/sarah-johnson-architect
+linkedin_michael_chen2,michaelchen2,Michael Chen,Cardiothoracic Surgeon,Cleveland Clinic,Cleveland OH,38000.0,120.0,linkedin.com/in/michael-chen-md
+linkedin_michael_chen3,mchen3,Michael Chen,Investment Banker,Goldman Sachs,New York NY,56000.0,210.0,linkedin.com/in/michael-chen-finance
+linkedin_david_kim2,davidkim2,David Kim,Executive Chef,The French Laundry,Napa Valley CA,32000.0,450.0,linkedin.com/in/david-kim-chef
+linkedin_david_kim3,dkim3,David Kim,Film Director,Independent,Los Angeles CA,48000.0,380.0,linkedin.com/in/david-kim-director
+linkedin_jennifer_lee,jenniferlee,Jennifer Lee,VP of Operations,Walmart,Bentonville AR,65000.0,230.0,linkedin.com/in/jennifer-lee-ops
+linkedin_jennifer_lee2,jlee2,Jennifer Lee,Animation Director,Disney,Los Angeles CA,120000.0,350.0,linkedin.com/in/jennifer-lee-disney
+linkedin_robert_wang,robertwang,Robert Wang,Mechanical Engineer,Tesla,Fremont CA,42000.0,180.0,linkedin.com/in/robert-wang-engineer
+linkedin_robert_wang2,rwang2,Robert Wang,Venture Capitalist,Basis Set Ventures,San Francisco CA,68000.0,320.0,linkedin.com/in/robert-wang-vc
+linkedin_lisa_patel,lisapatel,Lisa Patel,Chief Nursing Officer,Kaiser Permanente,Oakland CA,35000.0,210.0,linkedin.com/in/lisa-patel-nursing
+linkedin_lisa_patel2,lpatel2,Lisa Patel,Environmental Lawyer,Sierra Club,Washington DC,48000.0,280.0,linkedin.com/in/lisa-patel-law
+linkedin_john_martinez,johnmartinez,John Martinez,Sales Director,Salesforce,Chicago IL,72000.0,350.0,linkedin.com/in/john-martinez-sales
+linkedin_john_martinez2,jmartinez2,John Martinez,Professional Photographer,National Geographic,New York NY,95000.0,420.0,linkedin.com/in/john-martinez-photo
+linkedin_michelle_wong,michellewong,Michelle Wong,Pharmaceutical Researcher,Pfizer,Cambridge MA,38000.0,150.0,linkedin.com/in/michelle-wong-pharma
+linkedin_michelle_wong2,mwong2,Michelle Wong,Fashion Designer,Self-employed,New York NY,85000.0,520.0,linkedin.com/in/michelle-wong-fashion
+linkedin_kevin_zhang,kevinzhang,Kevin Zhang,Aerospace Engineer,NASA,Houston TX,56000.0,180.0,linkedin.com/in/kevin-zhang-aerospace
+linkedin_kevin_zhang2,kzhang2,Kevin Zhang,Professional Esports Player,Team Liquid,Los Angeles CA,120000.0,350.0,linkedin.com/in/kevin-zhang-esports
+linkedin_patrickcollison,patrickcollison,Patrick Collison,Co-founder & CEO,Stripe,San Francisco CA,580000.0,150.0,linkedin.com/in/patrickcollison
+linkedin_tobi,tobi,Tobi Lütke,Founder & CEO,Shopify,Ottawa Canada,450000.0,120.0,linkedin.com/in/tobil
+linkedin_dara,darak,Dara Khosrowshahi,Chief Executive Officer,Uber,San Francisco CA,390000.0,180.0,linkedin.com/in/dara-khosrowshahi
+linkedin_brian,brianchesky,Brian Chesky,Co-founder & CEO,Airbnb,San Francisco CA,1200000.0,250.0,linkedin.com/in/bchesky
+linkedin_stewart,stewartb,Stewart Butterfield,Co-founder,Slack,San Francisco CA,320000.0,180.0,linkedin.com/in/stewart-butterfield
+linkedin_melinda,melindagates,Melinda French Gates,Co-chair,Bill & Melinda Gates Foundation,Seattle WA,2100000.0,100.0,linkedin.com/in/melindagates
+linkedin_whitney,whitneywolfe,Whitney Wolfe Herd,Founder & CEO,Bumble,Austin TX,950000.0,320.0,linkedin.com/in/whitney-wolfe-herd
+linkedin_alexis,alexisohanian,Alexis Ohanian,Founder,Seven Seven Six,Miami FL,680000.0,950.0,linkedin.com/in/alexisohanian
+linkedin_arianna,ariannahuffington,Arianna Huffington,Founder & CEO,Thrive Global,New York NY,950000.0,210.0,linkedin.com/in/ariannahuff
+linkedin_jeffbezos,jeffbezos,Jeff Bezos,Founder and Executive Chair,Amazon,Seattle WA,11000000.0,0.0,linkedin.com/in/jeffbezos
+linkedin_billgates,williamgates,Bill Gates,Co-Chair,Bill & Melinda Gates Foundation,Seattle WA,34000000.0,12.0,linkedin.com/in/williamhgates
+linkedin_tim_cook,timcook,Tim Cook,CEO,Apple,Cupertino CA,4500000.0,200.0,linkedin.com/in/timcook
+linkedin_satya,satyanadella,Satya Nadella,Chairman and CEO,Microsoft,Redmond WA,11000000.0,500.0,linkedin.com/in/satyanadella
+linkedin_sheryl,sherylsandberg,Sheryl Sandberg,"Former COO, Founder","Meta, LeanIn.org",Menlo Park CA,2800000.0,750.0,linkedin.com/in/sherylsandberg
+linkedin_marissa,marissamayer,Marissa Mayer,Co-founder,Sunshine,Palo Alto CA,920000.0,280.0,linkedin.com/in/marissamayer
+linkedin_indra,indranooyi,Indra Nooyi,Former Chairman and CEO,PepsiCo,Greenwich CT,850000.0,120.0,linkedin.com/in/indra-nooyi
+linkedin_marc,marcbenioff,Marc Benioff,Chair and CEO,Salesforce,San Francisco CA,1800000.0,600.0,linkedin.com/in/marcbenioff
+linkedin_richard,richardbranson,Richard Branson,Founder,Virgin Group,London UK,19000000.0,85.0,linkedin.com/in/richardbranson
+linkedin_emilydcarter,emilydcarter,Emily Carter,Founder & Creative Director,Emily Carter Ltd,"London, England, United Kingdom",2500.0,0.0,https://www.linkedin.com/in/emilydcarter
+linkedin_emilycarterscientist,emily-carter-69a8881,Dr. Emily A. Carter,"Professor, Princeton University",Princeton University,"Princeton, New Jersey, United States",3500.0,0.0,https://www.linkedin.com/in/emily-carter-69a8881
+linkedin_michaelleebanker,michael-lee-667bb944,Michael Lee,"Senior EVP and Managing Director, Commercial Banking","Santander Bank, N.A.","New York, NY",5000.0,0.0,https://www.linkedin.com/in/michael-lee-667bb944
+linkedin_michaelleesoftware,m-t-lee,Michael Lee,Senior Software Development Engineer,Amazon,"Seattle, WA",1500.0,0.0,https://www.linkedin.com/in/m-t-lee
+linkedin_michaelleechef,michael-lee-142449332,Michael Lee,Executive Chef,HobNob,"Atlanta, GA",1000.0,0.0,https://www.linkedin.com/in/michael-lee-142449332
+linkedin_michaelleephoto,artistmichaellee,Michael Lee,Photographer,Self-Employed,"Los Angeles, CA",800.0,0.0,https://www.linkedin.com/in/artistmichaellee
+linkedin_davidkimmix,david-kim-19691385,David Kim,Grammy Winning Mix Engineer,"ALL UP IN THE MIX, LLC","Los Angeles, CA",340.0,0.0,https://www.linkedin.com/in/david-kim-19691385
+linkedin_davidksongwriter,david-k-kim-0628b6118,David K. Kim,Songwriter/Producer,Self-Employed,"New York, NY",500.0,0.0,https://www.linkedin.com/in/david-k-kim-0628b6118
+linkedin_davidkimmd,davidskimmd,David Kim MD,Physician,MemorialCare,"Orange County, CA",500.0,0.0,https://www.linkedin.com/in/davidskimmd
+linkedin_davidkimteacher,dkim325,David Kim,High School Science Teacher,New York Public Schools,"New York, NY",200.0,0.0,https://www.linkedin.com/in/dkim325
+linkedin_davidkjengineer,davidkjkim,David (kj) Kim,R&D Staff Electro-Mechanical Engineer,Self-Employed,"San Francisco, CA",500.0,0.0,https://www.linkedin.com/in/davidkjkim
+linkedin_sarahchendatascientist,sarah-chen-47742086,Sarah Chen,Chief Data Scientist,Hitachi Vantara,United States,92.0,0.0,https://www.linkedin.com/in/sarah-chen-47742086
+linkedin_sarahchenmarketing,sarahwchen,Sarah Chen,B2B Destination Marketing Leader,Sojern,"Los Angeles, CA",500.0,0.0,https://www.linkedin.com/in/sarahwchen
+linkedin_sarahcohenjournalist,sarahcnyt,Sarah Cohen,Knight Chair in Data Journalism,Walter Cronkite School of Journalism,United States,500.0,0.0,https://www.linkedin.com/in/sarahcnyt
+linkedin_sarahchenillustrator,sarah-chen-293198a8,Sarah Chen,"Designer, Illustrator, Storyteller",Self-Employed,"Austin, TX",500.0,0.0,https://www.linkedin.com/in/sarah-chen-293198a8
+linkedin_sarahchenresearcher,sarahchen22,Sarah Chen,Creative Researcher and Designer,William Chyr Studio LLC,"Claremont, CA",500.0,0.0,https://www.linkedin.com/in/sarahchen22
+linkedin_jamesfsmithmd,james-f-smith07,"James Smith, MD MS",Chief Medical Officer @ Fellow Health | Reproductive Urologist | Clinical Professor of Urology @ UCSF,Fellow Health,San Francisco Bay Area,500.0,0.0,https://www.linkedin.com/in/james-f-smith07
+linkedin_jamesjsmithmd,james-%E2%80%9Cj-%E2%80%9D-smith-md-facep-121b7b168,"James (“J.”) Smith, MD FACEP",Emergency Department Medical Director,Northside Gwinnett & Envision Physician Services,Greater Atlanta Area,500.0,0.0,https://www.linkedin.com/in/james-%E2%80%9Cj-%E2%80%9D-smith-md-facep-121b7b168
+linkedin_jamestsmithnasa,james-thomas-smith,James Smith,Deputy Chief Engineer for the Science and Technology Projects Division,NASA - National Aeronautics and Space Administration,"Merritt Island, FL",179.0,0.0,https://www.linkedin.com/in/james-thomas-smith
+linkedin_jamessmithengrduke,james-smith-348147106,James Smith,Principle Engineer,Duke Energy Corporation,"Charlotte, NC Area",500.0,0.0,https://www.linkedin.com/in/james-smith-348147106
+linkedin_iamjamessmithartist,iamjamessmith,James Smith,Artist | UI/UX | Games Dev,Self-Employed,United Kingdom,500.0,0.0,https://www.linkedin.com/today/author/iamjamessmith
+linkedin_jameswsmithdesignartist,james-smith-640895a8,James Smith,Artist,Jameswsmith_Design,"Port Byron, IL",16.0,0.0,https://www.linkedin.com/in/james-smith-640895a8
+linkedin_mariagarciaasstcfo,maria-garcia-761729347,Maria Garcia,Assistant Chief Financial Officer,Washington Permanente Medical Group,,,,https://www.linkedin.com/in/maria-garcia-761729347
+linkedin_mariagarciateachernyc,maria-garcia-b8840955,Maria Garcia,Teacher,NYC Department of Education,,,,https://www.linkedin.com/in/maria-garcia-b8840955
+linkedin_mariagarciachefcyc,maria-garcia-459440237,Maria Garcia,Banquet sous chef,Columbia Yacht Club,,,,https://www.linkedin.com/in/maria-garcia-459440237
+linkedin_mariagarcialoanops,maria-garcia-025407b6,Maria Garcia,Director of Loan Operations,RDF,,,,https://www.linkedin.com/in/maria-garcia-025407b6
+linkedin_mariagarciateachermia,maria-garcia-9165a2187,Maria Garcia,Teacher,Miami Dade County Public Schools,,,,https://www.linkedin.com/in/maria-garcia-9165a2187

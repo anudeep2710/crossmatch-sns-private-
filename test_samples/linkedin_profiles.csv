@@ -1,0 +1,6 @@
+user_id,name,bio,location,field_of_interest
+ln_test_001,Dr. Sarah Johnson,"Senior Data Scientist at TechCorp. PhD in Machine Learning from Stanford. Published 15+ papers in top-tier conferences. Expertise in deep learning, NLP, and computer vision.","San Francisco, CA",Data Science
+ln_test_002,Michael Chen,Software Engineer at Google. Stanford CS graduate. Passionate about machine learning and distributed systems.,"Mountain View, CA",Software Engineering
+ln_test_003,Maria Rodriguez,Marketing Director at Global Brands Inc. MBA from Wharton. Specializing in international market expansion and cross-cultural communication.,"New York, NY",Marketing
+ln_test_004,Alex Thompson,Former Senior Software Engineer transitioning to Digital Art. 8 years at Microsoft. Now pursuing MFA in Digital Media Arts. Bridging technology and creativity.,"Seattle, WA",Digital Arts
+ln_test_005,Jennifer Kim,"Product Manager at Startup Inc. Love hiking, photography, and craft coffee. Always looking for the next adventure.","Austin, TX",Product Management

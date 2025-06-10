@@ -1,41 +1,26 @@
-# Configuration for Cross-Platform User Identification
-
-# Data loading
+batch_size: 32
+cache_dir: cache
 download_nltk: true
-
-# Network embeddings
+fusion_method: concat
+fusion_output_dim: 64
+fusion_weights: null
+matching_method: cosine
+matching_threshold: 0.3
 network_embedding_dim: 64
-walk_length: 30
+network_method: node2vec
+normalize_temporal: true
+num_day_bins: 7
+num_time_bins: 24
 num_walks: 200
 p: 1.0
 q: 1.0
-# Available methods: node2vec, gcn, deepwalk, role2vec
-# Note: deepwalk and role2vec require karateclub package
-network_method: node2vec
-
-# Semantic embeddings
 semantic_model_name: sentence-transformers/all-MiniLM-L6-v2
-use_sentence_transformer: true
-
-# Temporal embeddings
-num_time_bins: 24
-num_day_bins: 7
-normalize_temporal: true
+tfidf_max_df: 1.0
+tfidf_max_features: 5000
+tfidf_min_df: 1
 timezone: UTC
-
-# Fusion
-fusion_output_dim: 64
-fusion_method: concat
-fusion_weights: null
-
-# Matching
-matching_method: cosine
-matching_threshold: 0.7
-
-# Visualization
-use_plotly: true
-
-# Caching
-cache_dir: cache
 use_compression: true
-batch_size: 32
+use_fallback_embedder: true
+use_plotly: true
+use_sentence_transformer: true
+walk_length: 30

@@ -1,0 +1,213 @@
+CROSS-PLATFORM USER IDENTIFICATION DATASET HEADINGS
+===================================================
+
+Generated: 2024-12-19
+Dataset Location: /home/anudeep/PycharmProjects/crossmatch-sns-private-/datatest/
+
+=============================================================================
+USER PROFILE FILES
+=============================================================================
+
+1. LINKEDIN PROFILES (merged_linkedin_profiles.csv)
+---------------------------------------------------
+Columns: 4
+Rows: 7,501 users
+
+HEADINGS:
+- user_id           : Unique LinkedIn user identifier (e.g., linkedin_seanvalentine0)
+- name              : User's full name (e.g., Jessica Brooks)
+- location          : Geographic location (e.g., Reyesburgh)
+- field_of_interest : Professional field/industry (e.g., Exhibition designer)
+
+SAMPLE DATA:
+user_id,name,location,field_of_interest
+linkedin_seanvalentine0,Jessica Brooks,Reyesburgh,Exhibition designer
+linkedin_garciatiffany1,Kimberly Crane,Dominguezport,"Merchandiser, retail"
+
+2. INSTAGRAM PROFILES (merged_instagram_profiles.csv)
+----------------------------------------------------
+Columns: 4
+Rows: 7,501 users
+
+HEADINGS:
+- user_id           : Unique Instagram user identifier (e.g., instagram_kbrown0)
+- name              : User's display name (e.g., Joseph Scott)
+- location          : Geographic location (e.g., Debbieview)
+- field_of_interest : Interest category/field (e.g., Restaurant manager, fast food)
+
+SAMPLE DATA:
+user_id,name,location,field_of_interest
+instagram_kbrown0,Joseph Scott,Debbieview,"Restaurant manager, fast food"
+instagram_gomezangela1,Frank Green,Danielbury,"Buyer, retail"
+
+=============================================================================
+USER POSTS FILES
+=============================================================================
+
+3. LINKEDIN POSTS (linkedin_posts.csv)
+--------------------------------------
+Columns: 5
+Rows: 22,572 posts
+
+HEADINGS:
+- user_id        : LinkedIn user who posted (links to linkedin profiles)
+- timestamp      : When the post was created (e.g., 2024-05-24)
+- content        : Text content of the post
+- likes_count    : Number of likes received (e.g., 468)
+- comments_count : Number of comments received (e.g., 171)
+
+SAMPLE DATA:
+user_id,timestamp,content,likes_count,comments_count
+linkedin_seanvalentine0,2024-05-24,Sea treatment father safe against across western institution agent happen term clear while.,468,171
+linkedin_seanvalentine0,2023-12-06,Majority assume suddenly walk consider future every prepare firm price agency series evening still special.,334,155
+
+4. INSTAGRAM POSTS (instagram_posts.csv)
+----------------------------------------
+Columns: 5
+Rows: 22,594 posts
+
+HEADINGS:
+- user_id        : Instagram user who posted (links to instagram profiles)
+- timestamp      : When the post was created (e.g., 2024-07-04)
+- content        : Text content of the post
+- likes_count    : Number of likes received (e.g., 25)
+- comments_count : Number of comments received (e.g., 189)
+
+SAMPLE DATA:
+user_id,timestamp,content,likes_count,comments_count
+instagram_kbrown0,2024-07-04,Very recently common nor movement full director as with option page administration board which compare.,25,189
+instagram_gomezangela1,2024-10-11,Interesting line I little plan goal support even a manager subject.,250,57
+
+=============================================================================
+NETWORK CONNECTION FILES
+=============================================================================
+
+5. LINKEDIN NETWORK (linkedin_network.edgelist)
+-----------------------------------------------
+Format: Space-separated edge list
+Rows: 93,413 connections
+
+FORMAT:
+user1_id user2_id
+
+DESCRIPTION:
+- Represents professional connections/follows on LinkedIn
+- Each line shows a connection between two LinkedIn users
+- Bidirectional relationships (if A connects to B, B connects to A)
+
+SAMPLE DATA:
+linkedin_wduncan1094 linkedin_ywilson242
+linkedin_user123 linkedin_user456
+
+6. INSTAGRAM NETWORK (instagram_network.edgelist)
+-------------------------------------------------
+Format: Space-separated edge list
+Rows: 93,285 connections
+
+FORMAT:
+user1_id user2_id
+
+DESCRIPTION:
+- Represents social follows/connections on Instagram
+- Each line shows a connection between two Instagram users
+- May include asymmetric relationships (follows)
+
+SAMPLE DATA:
+instagram_gilberttoni4024 instagram_kimtyler3969
+instagram_user123 instagram_user456
+
+=============================================================================
+GROUND TRUTH FILE
+=============================================================================
+
+7. GROUND TRUTH (merged_ground_truth.csv)
+-----------------------------------------
+Columns: 3
+Rows: 5,001 pairs
+
+HEADINGS:
+- linkedin_id   : LinkedIn user identifier (references linkedin profiles)
+- instagram_id  : Instagram user identifier (references instagram profiles)
+- is_same_user  : 1 if same person, 0 if different people
+
+DESCRIPTION:
+- Contains known matches between LinkedIn and Instagram users
+- Used for training and evaluation of the matching algorithm
+- Critical for measuring system performance and accuracy
+
+SAMPLE DATA:
+linkedin_id,instagram_id,is_same_user
+linkedin_seanvalentine0,instagram_kbrown0,1
+linkedin_garciatiffany1,instagram_gomezangela1,1
+
+=============================================================================
+DATASET STATISTICS SUMMARY
+=============================================================================
+
+SCALE:
+- Total LinkedIn Users: 7,500
+- Total Instagram Users: 7,500
+- Known User Matches: 5,000 pairs
+- LinkedIn Posts: 22,572
+- Instagram Posts: 22,594
+- LinkedIn Connections: 93,413
+- Instagram Connections: 93,285
+
+DATA TYPES:
+- Profile Data: Names, locations, interests
+- Content Data: Post text, engagement metrics
+- Network Data: Social connections and relationships
+- Temporal Data: Timestamps and activity patterns
+- Ground Truth: Verified user matches
+
+ANALYSIS FEATURES:
+- Text Features: Names, locations, interests, post content
+- Network Features: Connection patterns, mutual connections
+- Temporal Features: Posting times, activity patterns
+- Engagement Features: Likes, comments, social signals
+
+=============================================================================
+FILE RELATIONSHIPS
+=============================================================================
+
+PROFILE CONNECTIONS:
+- LinkedIn profiles link to LinkedIn posts via user_id
+- Instagram profiles link to Instagram posts via user_id
+- Ground truth links LinkedIn and Instagram profiles
+
+NETWORK CONNECTIONS:
+- LinkedIn network references LinkedIn profile user_ids
+- Instagram network references Instagram profile user_ids
+
+DATA FLOW:
+1. Profiles provide basic user information
+2. Posts provide content and engagement data
+3. Networks provide social connection data
+4. Ground truth provides training/evaluation labels
+
+=============================================================================
+USAGE NOTES
+=============================================================================
+
+FOR ANALYSIS:
+- Use profile data for demographic and interest matching
+- Use post data for semantic and content analysis
+- Use network data for social pattern analysis
+- Use temporal data for activity pattern analysis
+- Use ground truth for training and evaluation
+
+FOR MACHINE LEARNING:
+- Features can be extracted from all data types
+- Multi-modal approach recommended
+- Cross-validation using ground truth splits
+- Evaluation metrics: Precision, Recall, F1-Score, AUC-ROC
+
+DATA QUALITY:
+- All files are CSV format (except .edgelist)
+- Consistent user_id formatting across files
+- Complete timestamp information
+- Rich content and engagement data
+
+=============================================================================
+END OF DATASET HEADINGS DOCUMENTATION
+=============================================================================

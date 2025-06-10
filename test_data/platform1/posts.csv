@@ -1,0 +1,11 @@
+user_id,post_id,content,timestamp,likes,shares
+u1,p1_0,Excited about the new ML framework release!,2025-06-08 02:53:28.260786,45,5
+u1,p1_1,Working on a challenging computer vision project,2025-06-07 02:53:28.260819,32,3
+u2,p1_2,Published a paper on transformer architectures,2025-06-06 02:53:28.260826,67,8
+u2,p1_3,Great conference on natural language processing,2025-06-05 02:53:28.260865,89,12
+u3,p1_4,"Product launch went smoothly, team effort!",2025-06-04 02:53:28.260870,23,2
+u3,p1_5,Strategic planning for next quarter,2025-06-03 02:53:28.260875,34,4
+u4,p1_6,New design patterns for mobile UX,2025-06-02 02:53:28.260880,56,6
+u4,p1_7,User research insights are fascinating,2025-06-01 02:53:28.260885,78,9
+u5,p1_8,Kubernetes deployment optimization tips,2025-05-31 02:53:28.260889,41,4
+u5,p1_9,Cloud security best practices,2025-05-30 02:53:28.260894,52,7
